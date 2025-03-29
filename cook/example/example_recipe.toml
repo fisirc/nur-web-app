@@ -1,0 +1,9 @@
+[setup]
+url = "https://github.com/pandadiestro/antares"
+branch = "master"
+
+[build]
+steps = [
+    "zig build",
+]
+

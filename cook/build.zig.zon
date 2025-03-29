@@ -65,6 +65,9 @@
         //    // actually used.
         //    .lazy = false,
         //},
+        .zig_toml = .{
+            .path = "./deps/zig-toml",
+        },
     },
 
     // Specifies the set of files and directories that are included in this package.

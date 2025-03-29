@@ -15,6 +15,13 @@ pub fn build(b: *std.Build) void {
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
+    const zig_toml_dep = b.dependency("zig_toml", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const zig_toml_mod = zig_toml_dep.module("zig-toml");
+
     // We will also create a module for our other entry point, 'main.zig'.
     const exe_mod = b.createModule(.{
         // `root_source_file` is the Zig "entry point" of the module. If a module
@@ -26,11 +33,15 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    exe_mod.addImport("toml", zig_toml_mod);
+
     const check_mod = b.createModule(.{
         .root_source_file = b.path("src/main.zig"),
         .target = target,
         .optimize = optimize,
     });
+
+    check_mod.addImport("toml", zig_toml_mod);
 
     const check_exe = b.addExecutable(.{
         .name = "cook_check",

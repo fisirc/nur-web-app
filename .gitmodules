@@ -1,6 +1,0 @@
-[submodule "cook/deps/zig-toml"]
-	path = cook/deps/zig-toml
-	url = git@github.com:sam701/zig-toml.git
-[submodule "deps/zig-toml"]
-	path = deps/zig-toml
-	url = git@github.com:sam701/zig-toml.git

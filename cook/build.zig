@@ -31,17 +31,27 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("src/main.zig"),
         .target = target,
         .optimize = optimize,
+        .link_libc = true,
     });
 
     exe_mod.addImport("toml", zig_toml_mod);
+    exe_mod.linkSystemLibrary("libgit2", .{
+        .preferred_link_mode = .dynamic,
+        .use_pkg_config = .yes,
+    });
 
     const check_mod = b.createModule(.{
         .root_source_file = b.path("src/main.zig"),
         .target = target,
         .optimize = optimize,
+        .link_libc = true,
     });
 
     check_mod.addImport("toml", zig_toml_mod);
+    check_mod.linkSystemLibrary("libgit2", .{
+        .preferred_link_mode = .dynamic,
+        .use_pkg_config = .yes,
+    });
 
     const check_exe = b.addExecutable(.{
         .name = "cook_check",

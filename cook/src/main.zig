@@ -1,5 +1,8 @@
 const std = @import("std");
 const toml = @import("toml");
+const git = @import("lib/git2/entry.zig");
+
+
 
 const Recipe = struct {
     const Setup = struct {
@@ -16,6 +19,9 @@ const Recipe = struct {
 };
 
 pub fn main() !void {
+    git.init();
+    defer git.deinit();
+
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     var parser = toml.Parser(Recipe).init(arena.allocator());
     defer parser.deinit();
@@ -26,4 +32,8 @@ pub fn main() !void {
         parsed.value.setup.url,
         parsed.value.setup.branch,
     });
+
+    std.debug.print("cloning...", .{});
+    try git.cloneRepository("https://github.com/fisirc/nur", "hola");
+    std.debug.print("\rdone!       ", .{});
 }

@@ -68,6 +68,9 @@
         .zig_toml = .{
             .path = "./deps/zig-toml",
         },
+        .zzz = .{
+            .path = "./deps/zzz",
+        },
     },
 
     // Specifies the set of files and directories that are included in this package.

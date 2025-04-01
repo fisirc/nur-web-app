@@ -15,11 +15,17 @@ pub fn build(b: *std.Build) void {
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
+    const zig_zzz_dep = b.dependency("zzz", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
     const zig_toml_dep = b.dependency("zig_toml", .{
         .target = target,
         .optimize = optimize,
     });
 
+    const zig_zzz_mod = zig_zzz_dep.module("zzz");
     const zig_toml_mod = zig_toml_dep.module("zig-toml");
 
     // We will also create a module for our other entry point, 'main.zig'.
@@ -35,6 +41,7 @@ pub fn build(b: *std.Build) void {
     });
 
     exe_mod.addImport("toml", zig_toml_mod);
+    exe_mod.addImport("zzz", zig_zzz_mod);
     exe_mod.linkSystemLibrary("libgit2", .{
         .preferred_link_mode = .dynamic,
         .use_pkg_config = .yes,
@@ -48,6 +55,7 @@ pub fn build(b: *std.Build) void {
     });
 
     check_mod.addImport("toml", zig_toml_mod);
+    check_mod.addImport("zzz", zig_zzz_mod);
     check_mod.linkSystemLibrary("libgit2", .{
         .preferred_link_mode = .dynamic,
         .use_pkg_config = .yes,

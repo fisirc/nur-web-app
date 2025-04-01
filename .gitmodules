@@ -1,3 +1,6 @@
 [submodule "cook/deps/zig-toml"]
 	path = cook/deps/zig-toml
 	url = git@github.com:sam701/zig-toml.git
+[submodule "cook/deps/zzz"]
+	path = cook/deps/zzz
+	url = git@github.com:tardy-org/zzz.git

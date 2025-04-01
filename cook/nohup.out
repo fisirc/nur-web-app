@@ -1,0 +1,22 @@
+qt.multimedia.symbolsresolver: Couldn't load pipewire-0.3 library
+qt.multimedia.symbolsresolver: Couldn't resolve pipewire-0.3 symbols
+SIOYEK
+default_config_path: /etc/sioyek/prefs.config
+default_keys_path: /etc/sioyek/keys.config
+user_config_path: [ 0 ] /etc/xdg/sioyek/prefs_user.config
+user_config_path: [ 1 ] /home/bauer/.config/sioyek/prefs_user.config
+user_keys_path: [ 0 ] /etc/xdg/sioyek/keys_user.config
+user_keys_path: [ 1 ] /home/bauer/.config/sioyek/keys_user.config
+database_file_path: /home/bauer/.local/share/sioyek/test.db
+local_database_file_path: /home/bauer/.local/share/sioyek/local.db
+global_database_file_path: /home/bauer/.local/share/sioyek/shared.db
+tutorial_path: /usr/share/sioyek/tutorial.pdf
+last_opened_file_address_path: /home/bauer/.local/share/sioyek/last_document_path.txt
+shader_path: /usr/share/sioyek/shaders
+Warning: invalid command (key:-); resetting to root
+Warning: invalid command (key:+); resetting to root
+Warning: invalid command (key:); resetting to root
+Warning: invalid command (key:); resetting to root
+Warning: invalid command (key:); resetting to root
+Warning: invalid command (key:); resetting to root
+Warning: invalid command (key:); resetting to root

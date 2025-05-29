@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --background: hsl(260 23.0769% 97.451%);
+  --foreground: hsl(243.1579 13.6691% 27.2549%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --primary: hsl(260.4 22.9358% 57.2549%);
+  --primary-foreground: hsl(260 23.0769% 97.451%);
+  --secondary: hsl(258.9474 33.3333% 88.8235%);
+  --secondary-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --muted: hsl(258 15.1515% 87.0588%);
+  --muted-foreground: hsl(247.5 10.3448% 45.4902%);
+  --accent: hsl(342.4615 56.5217% 77.451%);
+  --accent-foreground: hsl(343.4483 23.9669% 23.7255%);
+  --destructive: hsl(0 62.1891% 60.5882%);
+  --destructive-foreground: hsl(260 23.0769% 97.451%);
+  --border: hsl(258.75 17.3913% 81.9608%);
+  --input: hsl(260 23.0769% 92.3529%);
+  --ring: hsl(260.4 22.9358% 57.2549%);
+  --chart-1: hsl(260.4 22.9358% 57.2549%);
+  --chart-2: hsl(342.4615 56.5217% 77.451%);
+  --chart-3: hsl(158.7692 31.401% 59.4118%);
+  --chart-4: hsl(35.7576 76.7442% 74.7059%);
+  --chart-5: hsl(215.8209 54.4715% 75.8824%);
+  --sidebar: hsl(260 23.0769% 94.902%);
+  --sidebar-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --sidebar-primary: hsl(260.4 22.9358% 57.2549%);
+  --sidebar-primary-foreground: hsl(260 23.0769% 97.451%);
+  --sidebar-accent: hsl(342.4615 56.5217% 77.451%);
+  --sidebar-accent-foreground: hsl(343.4483 23.9669% 23.7255%);
+  --sidebar-border: hsl(261.4286 18.4211% 85.098%);
+  --sidebar-ring: hsl(260.4 22.9358% 57.2549%);
+  --font-sans: Geist, sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-mono: "Fira Code", "Courier New", monospace;
+  --radius: 0.5rem;
+  --shadow-2xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
+  --shadow-xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
+  --shadow-sm:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+  --shadow:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+  --shadow-md:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 2px 4px 0px hsl(0 0% 0% / 0.06);
+  --shadow-lg:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 4px 6px 0px hsl(0 0% 0% / 0.06);
+  --shadow-xl:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 8px 10px 0px hsl(0 0% 0% / 0.06);
+  --shadow-2xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.15);
+}
+
+.dark {
+  --background: hsl(260 10.6441% 11.5686%);
+  --foreground: hsl(260 36% 90.1961%);
+  --card: hsl(260 17% 16%);
+  --card-foreground: hsl(264 36% 90.1961%);
+  --popover: hsl(251.25 20% 15.6863%);
+  --popover-foreground: hsl(260 36% 90.1961%);
+  --primary: hsl(290, 100%, 81%);
+  --primary-foreground: hsl(290 18.6441% 11.5686%);
+  --secondary: hsl(255, 18%, 24%);
+  --secondary-foreground: hsl(260 36% 90.1961%);
+  --muted: hsl(254.1176 20.9877% 15.8824%);
+  --muted-foreground: hsl(258.9474 10.3825% 64.1176%);
+  --accent: hsl(260 15.5963% 19.3725%);
+  --accent-foreground: hsl(290 60.0476% 92.5294%);
+  --destructive: hsl(0 68.6747% 67.451%);
+  --destructive-foreground: hsl(260 18.6441% 11.5686%);
+  --border: hsl(252 18.5185% 21.1765%);
+  --input: hsl(249.4737 19.5876% 19.0196%);
+  --ring: hsl(263.0769 32.5% 68.6275%);
+  --chart-1: hsl(263.0769 32.5% 68.6275%);
+  --chart-2: hsl(345.5172 69.0476% 83.5294%);
+  --chart-3: hsl(158.7692 31.401% 59.4118%);
+  --chart-4: hsl(35.7576 76.7442% 74.7059%);
+  --chart-5: hsl(215.8209 54.4715% 75.8824%);
+  --sidebar: hsl(252 20% 9.8039%);
+  --sidebar-foreground: hsl(260 36% 90.1961%);
+  --sidebar-primary: hsl(263.0769 32.5% 68.6275%);
+  --sidebar-primary-foreground: hsl(260 18.6441% 11.5686%);
+  --sidebar-accent: hsl(271.7647 15.5963% 21.3725%);
+  --sidebar-accent-foreground: hsl(345.5172 69.0476% 83.5294%);
+  --sidebar-border: hsl(249.4737 19.5876% 19.0196%);
+  --sidebar-ring: hsl(263.0769 32.5% 68.6275%);
+  --font-sans: Geist, sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-mono: "Fira Code", "Courier New", monospace;
+  --radius: 0.5rem;
+  --shadow-2xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
+  --shadow-xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
+  --shadow-sm:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+  --shadow:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+  --shadow-md:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 2px 4px 0px hsl(0 0% 0% / 0.06);
+  --shadow-lg:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 4px 6px 0px hsl(0 0% 0% / 0.06);
+  --shadow-xl:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 8px 10px 0px hsl(0 0% 0% / 0.06);
+  --shadow-2xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.15);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

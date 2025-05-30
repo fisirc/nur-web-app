@@ -30,12 +30,12 @@ const ProjectCard = (props: Project) => {
         </CardHeader>
         <CardFooter>
           <div className="flex w-full items-center justify-between">
-            <div className="flex flex-col gap-1 text-sm">
-              <div className="text-muted-foreground flex items-center gap-2">
+            <div className="flex flex-col gap-0 text-sm">
+              <div className="flex items-center gap-2">
                 <GitPullRequestArrow size={16} />
-                <span>Último commit</span>
+                <div>feat: add new feature</div>
               </div>
-              <div>feat: add new feature</div>
+              <div className="text-muted-foreground">hace 5 minutos</div>
             </div>
             <ChevronRight size={16} />
           </div>

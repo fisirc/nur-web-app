@@ -43,9 +43,7 @@ const ProjectDashboard = () => {
   const [location] = useLocation();
   const params = useParams();
 
-  if (!params.project_id) {
-    return null;
-  }
+  if (!params.project_id) return null;
 
   const activeTab = tabs.find((tab) => tab.url === location);
   if (!activeTab) return null;

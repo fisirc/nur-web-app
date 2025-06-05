@@ -10,7 +10,7 @@ import UserAvatar from "@/components/user-avatar";
 
 import { Library, Settings, Users, WalletMinimal } from "lucide-react";
 import { Route } from "wouter";
-import { MenuItem } from "@/components/menuitem";
+import { MenuItem } from "@/components/menu-item";
 import OrgProjectsPanel from "./org-projects-panel";
 import type { URLTab } from "@/types";
 import useURLTab from "@/hooks/use-url-tab";

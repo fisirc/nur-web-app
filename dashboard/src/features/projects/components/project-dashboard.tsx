@@ -11,7 +11,7 @@ import UserAvatar from "@/components/user-avatar";
 import { Home, Settings } from "lucide-react";
 import { IconLambda, IconRouteAltRight } from "@tabler/icons-react";
 import { Link, Route } from "wouter";
-import { MenuItem } from "@/components/menuitem";
+import { MenuItem } from "@/components/menu-item";
 import useCurrentProjectQR from "../hooks/use-current-project";
 import useURLTab from "@/hooks/use-url-tab";
 import type { URLTab } from "@/types";

@@ -2,50 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ProjectCard from "@/features/projects/components/project-card";
-import type { Project } from "@/features/projects/types";
+import { dummyProjectInfo } from "@/features/projects/data/dummy";
+import type { ProjectInfo } from "@/features/projects/types";
 
-const projects: Project[] = [
-  {
-    id: "1",
-    name: "Proyecto Uno",
-    deploymentUrl: "https://proyecto-uno.apis.nur.com",
-  },
-  {
-    id: "2",
-    name: "Proyecto Dos",
-    deploymentUrl: "https://proyecto-dos.apis.nur.com",
-  },
-  {
-    id: "3",
-    name: "Proyecto Tres",
-    deploymentUrl: "https://proyecto-tres.apis.nur.com",
-  },
-  {
-    id: "4",
-    name: "Proyecto Cuatro",
-    deploymentUrl: "https://proyecto-cuatro.apis.nur.com",
-  },
-  {
-    id: "5",
-    name: "Proyecto Cinco",
-    deploymentUrl: "https://proyecto-cinco.apis.nur.com",
-  },
-  {
-    id: "6",
-    name: "Proyecto Seis",
-    deploymentUrl: "https://proyecto-seis.apis.nur.com",
-  },
-  {
-    id: "7",
-    name: "Proyecto Siete",
-    deploymentUrl: "https://proyecto-siete.apis.nur.com",
-  },
-  {
-    id: "8",
-    name: "Proyecto Ocho",
-    deploymentUrl: "https://proyecto-ocho.apis.nur.com",
-  },
-];
+const projects: ProjectInfo[] = [dummyProjectInfo];
 
 const OrgProjectsPanel = () => {
   return (

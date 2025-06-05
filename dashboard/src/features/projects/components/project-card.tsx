@@ -9,19 +9,19 @@ import {
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Link } from "wouter";
 import { ChevronRight, GitPullRequestArrow } from "lucide-react";
-import { type Project } from "../types";
+import { type ProjectInfo } from "../types";
 
-const ProjectCard = (props: Project) => {
+const ProjectCard = (props: ProjectInfo) => {
   return (
     <Link href={`~/dashboard/project/${props.id}`}>
-      <Card className="hover:bg-secondary/50 transition-all duration-200">
+      <Card className="hover:bg-accent/75 transition-all duration-200">
         <CardHeader className="flex items-center gap-3">
           <Avatar className="size-10 rounded-sm">
             <AvatarImage src="https://picsum.photos/200" />
           </Avatar>
           <div className="overflow-hidden pt-1">
             <CardTitle className="truncate overflow-ellipsis">
-              {props.name}
+              {props.projectName}
             </CardTitle>
             <CardDescription className="truncate overflow-ellipsis">
               {props.deploymentUrl}

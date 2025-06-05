@@ -5,7 +5,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import logo from "@/assets/img/logo.png";
 import HelpButton from "@/components/help-button";
 import UserAvatar from "@/components/user-avatar";
 
@@ -17,6 +16,7 @@ import useCurrentProjectQR from "../hooks/use-current-project";
 import useURLTab from "@/hooks/use-url-tab";
 import type { URLTab } from "@/types";
 import ProjectOverviewPanel from "./project-overview-panel";
+import HeaderLogo from "@/components/header-logo";
 
 const tabs: URLTab[] = [
   {
@@ -49,7 +49,7 @@ const Header = () => {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <img src={logo} alt="Voltom Logo" className="h-7 w-auto" />
+            <HeaderLogo />
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

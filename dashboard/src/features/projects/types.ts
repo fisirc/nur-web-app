@@ -1,5 +1,10 @@
-export type Project = {
+export type ProjectInfo = {
   id: string;
-  name: string;
+  projectName: string;
+  githubRepoName: string;
+  active: boolean;
   deploymentUrl: string;
+  createdAt: string;
+  latestCommitName: string;
+  latestCommitDate: Date;
 };

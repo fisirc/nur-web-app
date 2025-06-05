@@ -10,11 +10,13 @@ import HelpButton from "@/components/help-button";
 import UserAvatar from "@/components/user-avatar";
 
 import { Library, Settings, Users, WalletMinimal } from "lucide-react";
-import { Route, useLocation } from "wouter";
+import { Route } from "wouter";
 import { MenuItem } from "@/components/menuitem";
 import OrgProjectsPanel from "./org-projects-panel";
+import type { URLTab } from "@/types";
+import useURLTab from "@/hooks/use-url-tab";
 
-const tabs = [
+const tabs: URLTab[] = [
   {
     title: "Proyectos",
     url: "/projects",
@@ -38,9 +40,7 @@ const tabs = [
 ];
 
 const OrgDashboard = () => {
-  const [location] = useLocation();
-
-  const activeTab = tabs.find((tab) => tab.url === location);
+  const activeTab = useURLTab(tabs);
   if (!activeTab) return null;
 
   return (
@@ -53,10 +53,6 @@ const OrgDashboard = () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>Voltom</BreadcrumbItem>
-            <BreadcrumbSeparator />
-            {/* <BreadcrumbItem>
-              <span>{activeTab.title}</span>
-            </BreadcrumbItem> */}
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex items-center gap-3">
@@ -69,7 +65,7 @@ const OrgDashboard = () => {
           {tabs.map((tab) => (
             <MenuItem
               key={tab.title}
-              active={location === tab.url}
+              active={activeTab.url === tab.url}
               href={tab.url}
             >
               <tab.icon className="mr-2 h-4 w-4" />

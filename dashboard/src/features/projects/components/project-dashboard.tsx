@@ -12,10 +12,10 @@ import { Home, Settings } from "lucide-react";
 import { IconLambda, IconRouteAltRight } from "@tabler/icons-react";
 import { Link, Route } from "wouter";
 import { MenuItem } from "@/components/menu-item";
-import useCurrentProjectQR from "../hooks/use-current-project";
+import useCurrentProject from "../hooks/use-current-project";
 import useURLTab from "@/hooks/use-url-tab";
 import type { URLTab } from "@/types";
-import ProjectOverviewPanel from "./project-overview-panel";
+import ProjectPanelOverview from "./project-panel-overview";
 import HeaderLogo from "@/components/header-logo";
 
 const tabs: URLTab[] = [
@@ -42,7 +42,7 @@ const tabs: URLTab[] = [
 ];
 
 const Header = () => {
-  const currentProjectQR = useCurrentProjectQR();
+  const currentProjectQR = useCurrentProject();
 
   return (
     <div className="border-border flex h-14 shrink-0 items-center justify-between border-b px-4">
@@ -94,7 +94,7 @@ const ProjectDashboard = () => {
       <div className="flex grow overflow-hidden">
         <Sidebar activeTab={activeTab} />
         <Route path="/">
-          <ProjectOverviewPanel />
+          <ProjectPanelOverview />
         </Route>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { ExternalLink, GitPullRequestArrow } from "lucide-react";
-import useCurrentProjectQR from "../hooks/use-current-project";
+import useCurrentProject from "../hooks/use-current-project";
 import QueryHandler from "@/components/query-handler";
 import { toESString } from "@/utils/date-formatter";
 import type { ProjectInfo } from "../types";
@@ -71,19 +71,20 @@ const OverviewCard = ({ currentProject }: { currentProject: ProjectInfo }) => (
   </Card>
 );
 
-const ProjectOverviewPanel = () => {
-  const currentProjectQR = useCurrentProjectQR();
-  const currentProject = currentProjectQR.data;
-  if (!currentProject) return <QueryHandler qr={currentProjectQR} />;
+const ProjectPanelOverview = () => {
+  const qr = useCurrentProject();
+  const { data } = qr;
+
+  if (!data) return <QueryHandler qr={qr} />;
 
   return (
     <ScrollArea className="grow">
       <div className="flex flex-col gap-6 p-8">
-        <Header currentProject={currentProject} />
-        <OverviewCard currentProject={currentProject} />
+        <Header currentProject={data} />
+        <OverviewCard currentProject={data} />
       </div>
     </ScrollArea>
   );
 };
 
-export default ProjectOverviewPanel;
+export default ProjectPanelOverview;

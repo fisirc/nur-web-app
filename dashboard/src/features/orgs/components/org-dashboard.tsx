@@ -11,10 +11,11 @@ import UserAvatar from "@/components/user-avatar";
 import { Library, Settings, Users, WalletMinimal } from "lucide-react";
 import { Route } from "wouter";
 import { MenuItem } from "@/components/menu-item";
-import OrgProjectsPanel from "./org-panel-projects";
+import OrgPanelProjects from "./org-panel-projects";
 import type { URLTab } from "@/types";
 import useURLTab from "@/hooks/use-url-tab";
 import HeaderLogo from "@/components/header-logo";
+import OrgPanelTeam from "./org-panel-team";
 
 const tabs: URLTab[] = [
   {
@@ -74,7 +75,10 @@ const OrgDashboard = () => {
           ))}
         </div>
         <Route path="/projects">
-          <OrgProjectsPanel />
+          <OrgPanelProjects />
+        </Route>
+        <Route path="/team">
+          <OrgPanelTeam />
         </Route>
       </div>
     </div>

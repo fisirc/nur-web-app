@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import fuzzyFilter from "@/utils/fuzzy-filter";
 import { Pagination, PaginationContent } from "@/components/ui/pagination";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const columns: ColumnDef<OrgMember>[] = [
   {
@@ -46,7 +47,7 @@ const MembersTable = ({ members }: { members: OrgMember[] }) => {
   });
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex grow flex-col gap-4">
       <div className="flex justify-between">
         <Input
           className="w-72"
@@ -57,6 +58,32 @@ const MembersTable = ({ members }: { members: OrgMember[] }) => {
         <Button>Invitar miembros</Button>
       </div>
       <DataTable table={table} />
+      <div className="flex items-center justify-end gap-2">
+        <div className="text-muted-foreground flex flex-1 items-center gap-2 text-sm">
+          <Input
+            value={table.getRowModel().rows.length}
+            onChange={(e) => table.setPageSize(Number(e.target.value) || 0)}
+            className="w-12"
+          />
+          de {table.getFilteredRowModel().rows.length} miembros visibles.
+        </div>
+        <div className="space-x-2">
+          <Button
+            variant="outline"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Anterior
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Siguiente
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -68,10 +95,12 @@ const OrgPanelTeam = () => {
   if (!data) return <QueryHandler qr={qr} />;
 
   return (
-    <div className="flex grow flex-col gap-8 p-8">
-      <h1 className="text-3xl">Equipo</h1>
-      <MembersTable members={data} />
-    </div>
+    <ScrollArea className="grow">
+      <div className="flex grow flex-col gap-8 p-8">
+        <h1 className="text-3xl">Equipo</h1>
+        <MembersTable members={data} />
+      </div>
+    </ScrollArea>
   );
 };
 

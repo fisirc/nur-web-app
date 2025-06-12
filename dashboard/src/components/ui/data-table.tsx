@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  type Table as TableType,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender, type Table as TableType } from "@tanstack/react-table";
 
 import {
   Table,
@@ -58,7 +52,7 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
               </TableRow>
             ))
           ) : (
-            <TableRow>
+            <TableRow className="border-0">
               <TableCell
                 colSpan={table.getAllColumns().length}
                 className="h-24 text-center"

@@ -6,7 +6,7 @@ export const dummyProjectInfo: ProjectInfo = {
   githubRepoName: "voltom/example-project",
   active: true,
   deploymentUrl: "https://example.com",
-  createdAt: new Date("2025-05-10"),
+  createdAt: "2025-05-10",
   latestCommitName: "feat: add new feature",
   latestCommitDate: new Date("2025-05-12"),
 };

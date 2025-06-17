@@ -30,17 +30,20 @@ const OverviewCard = ({ currentProject }: { currentProject: ProjectInfo }) => (
       <div className="flex w-[150px] shrink-0 flex-col gap-6">
         <div className="flex flex-col">
           <span className="text-muted-foreground">Estado</span>
-          {currentProject.active ? (
-            <div className="flex items-center gap-2">
-              <span className="inline-block size-2 rounded-full bg-lime-300" />
-              <span>Activo y listo</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <span className="inline-block size-2 rounded-full bg-red-300" />
-              <span>Inactivo</span>
-            </div>
-          )}
+          {
+            // currentProject.active ? (
+            true ? (
+              <div className="flex items-center gap-2">
+                <span className="inline-block size-2 rounded-full bg-lime-300" />
+                <span>Activo y listo</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="inline-block size-2 rounded-full bg-red-300" />
+                <span>Inactivo</span>
+              </div>
+            )
+          }
         </div>
         <div className="flex flex-col">
           <span className="text-muted-foreground">Creado el</span>

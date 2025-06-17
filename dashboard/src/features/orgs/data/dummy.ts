@@ -9,10 +9,10 @@ const dummyOrgMemberGenerator = (n: number): OrgMember[] => {
       fullName: `Miembro ${id}`,
       avatarUrl: "https://picsum.photos/50",
       email: `miembro${id}@email.com`,
-      roleId: "admin",
+      role: "admin",
     });
   }
   return members;
 };
 
-export const dummyOrgMembers: OrgMember[] = dummyOrgMemberGenerator(24);
+export const dummyOrgMembers: OrgMember[] = dummyOrgMemberGenerator(6);

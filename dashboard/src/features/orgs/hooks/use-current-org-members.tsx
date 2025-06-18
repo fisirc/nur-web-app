@@ -1,13 +1,9 @@
-import {
-  keepPreviousData,
-  useQuery,
-  type UseQueryResult,
-} from "@tanstack/react-query";
-import type { OrgMember } from "../types";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
-import OrgMembersService from "../services/org-members-service";
+import OrgService from "../services/org-service";
+import type { Member } from "../types";
 
-const useCurrentOrgMembers = (): UseQueryResult<OrgMember[]> => {
+const useCurrentOrgMembers = () => {
   const { org_id } = useParams();
 
   if (!org_id)
@@ -15,9 +11,9 @@ const useCurrentOrgMembers = (): UseQueryResult<OrgMember[]> => {
       "useCurrentOrgMembers called outside of an organization context",
     );
 
-  return useQuery<OrgMember[]>({
+  return useQuery<Member[]>({
     queryKey: ["org", org_id, "members"],
-    queryFn: () => OrgMembersService.getOrgMembers(org_id),
+    queryFn: () => OrgService.getMembers(org_id),
     placeholderData: keepPreviousData,
   });
 };

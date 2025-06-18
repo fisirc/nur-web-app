@@ -5,14 +5,12 @@ import {
   useReactTable,
   type ColumnDef,
 } from "@tanstack/react-table";
-import type { OrgMember } from "../types";
 import useCurrentOrgMembers from "../hooks/use-current-org-members";
 import QueryHandler from "@/components/query-handler";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import fuzzyFilter from "@/utils/fuzzy-filter";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { orgMemberRoleAttribs } from "../data/constants";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,15 +18,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
+import roleLabel from "../utils/roleLabel";
+import type { Member } from "../types";
 
-const columns: ColumnDef<OrgMember>[] = [
+const columns: ColumnDef<Member>[] = [
   {
     id: "fullName",
     header: "Miembro",
     accessorKey: "fullName",
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <img className="size-8 rounded-full" src={row.original.avatarUrl} />
+        <img
+          className="size-8 rounded-full"
+          src={row.original.avatar_url as string}
+        />
         <span>{row.getValue("fullName")}</span>
       </div>
     ),
@@ -43,7 +46,7 @@ const columns: ColumnDef<OrgMember>[] = [
   {
     id: "role",
     header: "Rol",
-    accessorFn: (row) => orgMemberRoleAttribs[row.role].label,
+    accessorFn: (row) => roleLabel(row.role),
     enableGlobalFilter: false,
   },
   {
@@ -68,7 +71,7 @@ const columns: ColumnDef<OrgMember>[] = [
   },
 ];
 
-const MembersTable = ({ members }: { members: OrgMember[] }) => {
+const MembersTable = ({ members }: { members: Member[] }) => {
   const table = useReactTable({
     data: members,
     columns,

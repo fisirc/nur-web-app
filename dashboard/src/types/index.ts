@@ -1,4 +1,3 @@
-/// <reference path="./supabase.ts>
 import type { TablerIcon } from "@tabler/icons-react";
 import type { LucideIcon } from "lucide-react";
 

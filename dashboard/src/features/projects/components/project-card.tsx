@@ -9,9 +9,9 @@ import {
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Link } from "wouter";
 import { ChevronRight, GitPullRequestArrow } from "lucide-react";
-import { type ProjectInfo } from "../types";
+import type { ProjectDetails } from "../types";
 
-const ProjectCard = (props: ProjectInfo) => {
+const ProjectCard = (props: ProjectDetails) => {
   return (
     <Link href={`~/dashboard/project/${props.id}`}>
       <Card className="hover:bg-accent/75 transition-all duration-200">
@@ -21,10 +21,10 @@ const ProjectCard = (props: ProjectInfo) => {
           </Avatar>
           <div className="overflow-hidden pt-1">
             <CardTitle className="truncate overflow-ellipsis">
-              {props.projectName}
+              {props.name}
             </CardTitle>
             <CardDescription className="truncate overflow-ellipsis">
-              {props.deploymentUrl}
+              https://example.com
             </CardDescription>
           </div>
         </CardHeader>

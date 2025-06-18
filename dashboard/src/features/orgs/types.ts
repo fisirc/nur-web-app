@@ -1,3 +1,5 @@
+import type { Tables } from "@/types";
+
 export type OrgMemberRole = "owner" | "admin" | "developer" | "read-only";
 
 export type OrgMemberRoleAttribs = {
@@ -5,10 +7,4 @@ export type OrgMemberRoleAttribs = {
   label: String;
 };
 
-export type OrgMember = {
-  id: string;
-  fullName: string;
-  avatarUrl: string;
-  email: string;
-  role: OrgMemberRole;
-};
+export type OrgMember = Tables<'users'>

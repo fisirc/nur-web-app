@@ -1,9 +1,3 @@
-export type ProjectInfo = {
-  id: string;
-  projectName: string;
-  githubRepoName: string;
-  deploymentUrl: string;
-  createdAt: string;
-  latestCommitName: string;
-  latestCommitDate: Date;
-};
+import type { Tables } from "@/types";
+
+export type ProjectInfo = Tables<'projects'>

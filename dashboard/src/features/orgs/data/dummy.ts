@@ -6,10 +6,8 @@ const dummyOrgMemberGenerator = (n: number): OrgMember[] => {
     const id = (i + 1).toString();
     members.push({
       id,
-      fullName: `Miembro ${id}`,
-      avatarUrl: "https://picsum.photos/50",
-      email: `miembro${id}@email.com`,
-      role: "admin",
+      github_username: `miembro${id}`,
+      avatar_url: "https://picsum.photos/50",
     });
   }
   return members;

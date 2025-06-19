@@ -11,7 +11,7 @@ const App = () => {
       <Route path="/dashboard" nest>
         {/* <Route path="/org/new">new org</Route> */}
         <Route path="/">
-          <Redirect to="/org/1" />
+          <Redirect to="/org/5abca721-0023-4de7-950b-289ee25f17b9" />
         </Route>
         <Route path="/org/:org_id" nest>
           <Route path="/">

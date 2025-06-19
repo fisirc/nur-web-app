@@ -9,9 +9,9 @@ import {
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Link } from "wouter";
 import { ChevronRight, GitPullRequestArrow } from "lucide-react";
-import type { ProjectDetails } from "../types";
+import type { Project } from "../types";
 
-const ProjectCard = (props: ProjectDetails) => {
+const ProjectCard = (props: Project) => {
   return (
     <Link href={`~/dashboard/project/${props.id}`}>
       <Card className="hover:bg-accent/75 transition-all duration-200">

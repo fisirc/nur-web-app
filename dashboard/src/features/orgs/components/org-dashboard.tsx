@@ -16,6 +16,7 @@ import type { URLTab } from "@/types";
 import useURLTab from "@/hooks/use-url-tab";
 import HeaderLogo from "@/components/header-logo";
 import OrgPanelTeam from "./org-panel-team";
+import useCurrentOrg from "../hooks/use-current-org";
 
 const tabs: URLTab[] = [
   {
@@ -42,6 +43,8 @@ const tabs: URLTab[] = [
 
 const OrgDashboard = () => {
   const activeTab = useURLTab(tabs);
+  const orgQr = useCurrentOrg();
+
   if (!activeTab) return null;
 
   return (
@@ -53,7 +56,7 @@ const OrgDashboard = () => {
               <HeaderLogo />
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>Voltom</BreadcrumbItem>
+            <BreadcrumbItem>{orgQr.data?.name || "..."}</BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex items-center gap-3">

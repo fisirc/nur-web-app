@@ -2,12 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ProjectCard from "@/features/projects/components/project-card";
-import { dummyProjectInfo } from "@/features/projects/data/dummy";
-import type { ProjectInfo } from "@/features/projects/types";
-
-const projects: ProjectInfo[] = [dummyProjectInfo];
+import useCurrentOrgProjects from "../hooks/use-current-org-projects";
+import QueryHandler from "@/components/query-handler";
 
 const OrgProjectsPanel = () => {
+  const projectsQr = useCurrentOrgProjects();
+  const projects = projectsQr.data;
+  if (!projects) return <QueryHandler qr={projectsQr} />;
+
   return (
     <ScrollArea className="grow">
       <div className="flex flex-col gap-6 p-8">

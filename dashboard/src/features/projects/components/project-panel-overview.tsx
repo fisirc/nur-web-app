@@ -5,11 +5,11 @@ import { ExternalLink, GitPullRequestArrow } from "lucide-react";
 import useCurrentProject from "../hooks/use-current-project";
 import QueryHandler from "@/components/query-handler";
 import { toESString } from "@/utils/date-formatter";
-import type { ProjectInfo } from "../types";
+import type { Project } from "../types";
 
-const Header = ({ currentProject }: { currentProject: ProjectInfo }) => (
+const Header = ({ currentProject }: { currentProject: Project }) => (
   <div className="flex flex-col gap-1">
-    <h1 className="text-3xl">{currentProject.projectName}</h1>
+    <h1 className="text-3xl">{currentProject.name}</h1>
     <a
       href="https://github.com/voltom/project"
       target="_blank"
@@ -17,14 +17,16 @@ const Header = ({ currentProject }: { currentProject: ProjectInfo }) => (
     >
       <div className="text-muted-foreground flex items-center gap-1 text-sm">
         <IconBrandGithub size={16} />
-        <span className="hover:underline">{currentProject.githubRepoName}</span>
+        <span className="hover:underline">
+          {currentProject.github_repo_name}
+        </span>
         <ExternalLink size={12} />
       </div>
     </a>
   </div>
 );
 
-const OverviewCard = ({ currentProject }: { currentProject: ProjectInfo }) => (
+const OverviewCard = ({ currentProject }: { currentProject: Project }) => (
   <Card>
     <CardContent className="flex gap-6 text-sm">
       <div className="flex w-[150px] shrink-0 flex-col gap-6">
@@ -47,7 +49,7 @@ const OverviewCard = ({ currentProject }: { currentProject: ProjectInfo }) => (
         </div>
         <div className="flex flex-col">
           <span className="text-muted-foreground">Creado el</span>
-          <span>{toESString(currentProject.createdAt)}</span>
+          <span>{toESString(currentProject.created_at)}</span>
         </div>
       </div>
       <div className="flex flex-col gap-6">
@@ -55,18 +57,18 @@ const OverviewCard = ({ currentProject }: { currentProject: ProjectInfo }) => (
           <span className="text-muted-foreground">URL de despliegue</span>
           <a
             className="hover:underline"
-            href={currentProject.deploymentUrl}
+            href="https://deploy.nur.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            {currentProject.deploymentUrl}
+            https://deploy.nur.com
           </a>
         </div>
         <div className="flex flex-col">
           <span className="text-muted-foreground">Último commit</span>
           <div className="flex items-center gap-2">
             <GitPullRequestArrow size={16} />
-            <div>{currentProject.latestCommitName}</div>
+            <div>feat: add new feature</div>
           </div>
         </div>
       </div>
@@ -75,10 +77,10 @@ const OverviewCard = ({ currentProject }: { currentProject: ProjectInfo }) => (
 );
 
 const ProjectPanelOverview = () => {
-  const qr = useCurrentProject();
-  const { data } = qr;
+  const projectQr = useCurrentProject();
+  const { data } = projectQr;
 
-  if (!data) return <QueryHandler qr={qr} />;
+  if (!data) return <QueryHandler qr={projectQr} />;
 
   return (
     <ScrollArea className="grow">

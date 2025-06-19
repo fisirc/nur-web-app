@@ -1,3 +1,3 @@
 import type { Tables } from "@/types/supabase";
 
-export type ProjectDetails = Tables<"projects">;
+export type Project = Tables<"projects">;

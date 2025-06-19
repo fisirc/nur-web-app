@@ -17,7 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
+import { CircleUser, MoreHorizontal } from "lucide-react";
 import roleLabel from "../utils/roleLabel";
 import type { Member } from "../types";
 
@@ -26,15 +26,19 @@ const columns: ColumnDef<Member>[] = [
     id: "fullName",
     header: "Miembro",
     accessorKey: "fullName",
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <img
-          className="size-8 rounded-full"
-          src={row.original.avatar_url as string}
-        />
-        <span>{row.getValue("fullName")}</span>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const { avatar_url } = row.original;
+      return (
+        <div className="flex items-center gap-2">
+          {avatar_url ? (
+            <img className="size-8 rounded-full" src={avatar_url} />
+          ) : (
+            <CircleUser className="size-8" />
+          )}
+          <span>{row.getValue("fullName")}</span>
+        </div>
+      );
+    },
     enableGlobalFilter: true,
   },
   {

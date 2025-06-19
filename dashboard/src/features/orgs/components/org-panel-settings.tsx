@@ -1,10 +1,11 @@
-// import QueryHandler from "@/components/query-handler";
+import QueryHandler from "@/components/query-handler";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import useCurrentOrg from "../hooks/use-current-org";
 
-const OrgPanelTeam = () => {
-  // const qr = useCurrentOrgMembers();
-  // const { data } = qr;
-  // if (!data) return <QueryHandler qr={qr} />;
+const OrgPanelSettings = () => {
+  const orgQr = useCurrentOrg();
+  const { data } = orgQr;
+  if (!data) return <QueryHandler qr={orgQr} />;
 
   return (
     <ScrollArea className="grow">
@@ -15,4 +16,4 @@ const OrgPanelTeam = () => {
   );
 };
 
-export default OrgPanelTeam;
+export default OrgPanelSettings;

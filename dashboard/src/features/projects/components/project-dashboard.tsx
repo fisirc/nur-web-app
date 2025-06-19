@@ -17,6 +17,7 @@ import useURLTab from "@/hooks/use-url-tab";
 import type { URLTab } from "@/types";
 import ProjectPanelOverview from "./project-panel-overview";
 import HeaderLogo from "@/components/header-logo";
+import useCurrentOrg from "@/features/orgs/hooks/use-current-org";
 
 const tabs: URLTab[] = [
   {
@@ -42,7 +43,8 @@ const tabs: URLTab[] = [
 ];
 
 const Header = () => {
-  const currentProjectQR = useCurrentProject();
+  const projectQr = useCurrentProject();
+  const orgQr = useCurrentOrg();
 
   return (
     <div className="border-border flex h-14 shrink-0 items-center justify-between border-b px-4">
@@ -53,12 +55,16 @@ const Header = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <Link href="~/dashboard/org/1">Voltom</Link>
+            {orgQr.data ? (
+              <Link href={`~/dashboard/org/${orgQr.data.id}`}>
+                {orgQr.data.name}
+              </Link>
+            ) : (
+              "..."
+            )}
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            {currentProjectQR.data?.projectName || "..."}
-          </BreadcrumbItem>
+          <BreadcrumbItem>{projectQr.data?.name || "..."}</BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="flex items-center gap-3">

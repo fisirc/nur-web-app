@@ -44,10 +44,7 @@ const columns: ColumnDef<Member>[] = [
   {
     id: "role",
     header: "Rol",
-    accessorFn: (row) => {
-      // console.log(row);
-      return roleLabel(row.role);
-    },
+    accessorFn: (row) => roleLabel(row.role),
     enableGlobalFilter: false,
   },
   {

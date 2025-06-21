@@ -12,7 +12,7 @@ const useCurrentOrgProjects = () => {
     );
 
   return useQuery<Project[]>({
-    queryKey: ["org", org_id, "members"],
+    queryKey: ["org", org_id, "projects"],
     queryFn: () => OrgService.getProjects(org_id),
     placeholderData: keepPreviousData,
   });

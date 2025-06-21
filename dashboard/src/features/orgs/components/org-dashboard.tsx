@@ -29,11 +29,11 @@ const tabs: URLTab[] = [
     url: "/team",
     icon: Users,
   },
-  {
-    title: "Facturación",
-    url: "/billing",
-    icon: WalletMinimal,
-  },
+  // {
+  //   title: "Facturación",
+  //   url: "/billing",
+  //   icon: WalletMinimal,
+  // },
   {
     title: "Ajustes",
     url: "/settings",

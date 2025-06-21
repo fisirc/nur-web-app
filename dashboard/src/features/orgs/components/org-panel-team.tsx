@@ -23,9 +23,9 @@ import type { Member } from "../types";
 
 const columns: ColumnDef<Member>[] = [
   {
-    id: "fullName",
+    id: "github_username",
     header: "Miembro",
-    accessorKey: "fullName",
+    accessorKey: "github_username",
     cell: ({ row }) => {
       const { avatar_url } = row.original;
       return (
@@ -35,22 +35,19 @@ const columns: ColumnDef<Member>[] = [
           ) : (
             <CircleUser className="size-8" />
           )}
-          <span>{row.getValue("fullName")}</span>
+          <span>{row.getValue("github_username")}</span>
         </div>
       );
     },
     enableGlobalFilter: true,
   },
   {
-    id: "email",
-    header: "Correo",
-    accessorKey: "email",
-    enableGlobalFilter: true,
-  },
-  {
     id: "role",
     header: "Rol",
-    accessorFn: (row) => roleLabel(row.role),
+    accessorFn: (row) => {
+      // console.log(row);
+      return roleLabel(row.role);
+    },
     enableGlobalFilter: false,
   },
   {

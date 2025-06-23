@@ -1,10 +1,10 @@
-import { Redirect, Route } from "wouter";
+import { Redirect, Route, Switch } from "wouter";
 import OrgDashboard from "@/features/orgs/components/org-dashboard";
 import ProjectDashboard from "@feat/projects/components/project-dashboard";
 
 const App = () => {
   return (
-    <>
+    <Switch>
       <Route path="/">
         <Redirect to="/dashboard" />
       </Route>
@@ -23,7 +23,8 @@ const App = () => {
           <ProjectDashboard />
         </Route>
       </Route>
-    </>
+      <Route>404: No such page!</Route>
+    </Switch>
   );
 };
 

@@ -8,8 +8,8 @@ type FunctionDetailProps = {
 }
 
 const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
-  const fn = useCurrentFunction();
-  const fnDeployment = useLastFunctionDeployment();
+  const fn = useCurrentFunction({ function_id: functionId });
+  const fnDeployment = useLastFunctionDeployment({ function_id: functionId });
 
   if (fn.isLoading) {
     return null;

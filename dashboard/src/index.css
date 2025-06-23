@@ -43,7 +43,7 @@
 
 :root {
   --background: hsl(260 23.0769% 97.451%);
-  --foreground: hsl(243.1579 13.6691% 27.2549%);
+  --foreground: hsl(250, 8%, 16%);
   --card: hsl(266, 26%, 95%);
   --card-foreground: hsl(243.1579 13.6691% 27.2549%);
   --popover: hsl(0 0% 100%);
@@ -94,6 +94,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: hsl(252, 12%, 8%);
   --foreground: hsl(260 36% 90.1961%);
   --card: #1d1b20;

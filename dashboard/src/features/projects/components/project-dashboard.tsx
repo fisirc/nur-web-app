@@ -18,6 +18,7 @@ import type { URLTab } from "@/types";
 import ProjectPanelOverview from "./project-panel-overview";
 import HeaderLogo from "@/components/header-logo";
 import useCurrentOrg from "@/features/orgs/hooks/use-current-org";
+import FunctionDetail from "@/features/functions/components/function-detail";
 
 const tabs: URLTab[] = [
   {
@@ -114,7 +115,7 @@ const ProjectDashboard = () => {
             TODO: settings del proyecto
           </Route>
           <Route path="/functions/:function_id">
-            {(params) => <div>TODO: detalle de función {params.function_id}</div>}
+            {(params) => <FunctionDetail functionId={params.function_id} />}
           </Route>
           <Route>
             <Redirect to="/" />

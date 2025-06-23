@@ -44,7 +44,7 @@
 :root {
   --background: hsl(260 23.0769% 97.451%);
   --foreground: hsl(243.1579 13.6691% 27.2549%);
-  --card: hsl(0 0% 100%);
+  --card: hsl(266, 26%, 95%);
   --card-foreground: hsl(243.1579 13.6691% 27.2549%);
   --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(243.1579 13.6691% 27.2549%);
@@ -94,9 +94,9 @@
 }
 
 .dark {
-  --background: hsl(260 10.6441% 11.5686%);
+  --background: hsl(252, 12%, 8%);
   --foreground: hsl(260 36% 90.1961%);
-  --card: hsl(260 17% 16%);
+  --card: #1d1b20;
   --card-foreground: hsl(264 36% 90.1961%);
   --popover: hsl(251.25 20% 15.6863%);
   --popover-foreground: hsl(260 36% 90.1961%);
@@ -111,7 +111,7 @@
   --destructive: hsl(0 68.6747% 67.451%);
   --destructive-foreground: hsl(260 18.6441% 11.5686%);
   --border: hsl(252 18.5185% 21.1765%);
-  --input: hsl(249.4737 19.5876% 19.0196%);
+  --input: #262329;
   --ring: hsl(263.0769 32.5% 68.6275%);
   --chart-1: hsl(263.0769 32.5% 68.6275%);
   --chart-2: hsl(345.5172 69.0476% 83.5294%);

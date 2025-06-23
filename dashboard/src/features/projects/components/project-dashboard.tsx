@@ -10,7 +10,7 @@ import UserAvatar from "@/components/user-avatar";
 
 import { Home, Settings } from "lucide-react";
 import { IconLambda, IconRouteAltRight } from "@tabler/icons-react";
-import { Link, Route } from "wouter";
+import { Link, Redirect, Route, Switch } from "wouter";
 import { MenuItem } from "@/components/menu-item";
 import useCurrentProject from "../hooks/use-current-project";
 import useURLTab from "@/hooks/use-url-tab";
@@ -20,11 +20,6 @@ import HeaderLogo from "@/components/header-logo";
 import useCurrentOrg from "@/features/orgs/hooks/use-current-org";
 
 const tabs: URLTab[] = [
-  {
-    title: "Vista general",
-    url: "/",
-    icon: Home,
-  },
   {
     title: "Funciones",
     url: "/functions",
@@ -39,6 +34,12 @@ const tabs: URLTab[] = [
     title: "Ajustes de proyecto",
     url: "/settings",
     icon: Settings,
+  },
+  // The root "/" is placed at the end so it's the last to match
+  {
+    title: "Vista general",
+    url: "/",
+    icon: Home,
   },
 ];
 
@@ -99,9 +100,26 @@ const ProjectDashboard = () => {
       <Header />
       <div className="flex grow overflow-hidden">
         <Sidebar activeTab={activeTab} />
-        <Route path="/">
-          <ProjectPanelOverview />
-        </Route>
+        <Switch>
+          <Route path="/">
+            <ProjectPanelOverview />
+          </Route>
+          <Route path="/functions">
+            TODO: listado de funciones
+          </Route>
+          <Route path="/routes">
+            TODO: rutas de la API
+          </Route>
+          <Route path="/settings">
+            TODO: settings del proyecto
+          </Route>
+          <Route path="/functions/:function_id">
+            {(params) => <div>TODO: detalle de función {params.function_id}</div>}
+          </Route>
+          <Route>
+            <Redirect to="/" />
+          </Route>
+        </Switch>
       </div>
     </div>
   );

@@ -99,7 +99,7 @@ const ProjectDashboard = () => {
   return (
     <div className="flex h-screen flex-col">
       <Header />
-      <div className="flex grow overflow-hidden">
+      <div className="flex grow">
         <Sidebar activeTab={activeTab} />
         <Switch>
           <Route path="/">

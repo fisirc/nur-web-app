@@ -54,37 +54,95 @@ export type Database = {
           },
         ]
       }
-      functions: {
+      function_executions: {
         Row: {
+          created_at: string
+          function_id: string
           id: string
-          last_invocation: string
-          name: string
-          recipe_id: string
-          size_kb: number | null
-          wasm_path: string
+          request: string | null
+          status_code: number
         }
         Insert: {
+          created_at?: string
+          function_id: string
           id?: string
-          last_invocation: string
-          name: string
-          recipe_id: string
-          size_kb?: number | null
-          wasm_path: string
+          request?: string | null
+          status_code: number
         }
         Update: {
+          created_at?: string
+          function_id?: string
           id?: string
-          last_invocation?: string
-          name?: string
-          recipe_id?: string
-          size_kb?: number | null
-          wasm_path?: string
+          request?: string | null
+          status_code?: number
         }
         Relationships: [
           {
-            foreignKeyName: "functions_recipe_id_fkey"
-            columns: ["recipe_id"]
+            foreignKeyName: "function_executions_function_id_fkey"
+            columns: ["function_id"]
             isOneToOne: false
-            referencedRelation: "recipes"
+            referencedRelation: "functions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      function_logs: {
+        Row: {
+          created_at: string
+          function_id: string | null
+          id: string
+          message: string
+        }
+        Insert: {
+          created_at?: string
+          function_id?: string | null
+          id?: string
+          message: string
+        }
+        Update: {
+          created_at?: string
+          function_id?: string | null
+          id?: string
+          message?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "function_logs_function_id_fkey"
+            columns: ["function_id"]
+            isOneToOne: false
+            referencedRelation: "functions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      functions: {
+        Row: {
+          id: string
+          last_invocation: string | null
+          name: string
+          project_id: string
+          size_kb: number | null
+        }
+        Insert: {
+          id?: string
+          last_invocation?: string | null
+          name: string
+          project_id: string
+          size_kb?: number | null
+        }
+        Update: {
+          id?: string
+          last_invocation?: string | null
+          name?: string
+          project_id?: string
+          size_kb?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "functions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
             referencedColumns: ["id"]
           },
         ]
@@ -187,8 +245,6 @@ export type Database = {
           commit_sha: string
           commit_short_description: string | null
           created_at: string | null
-          github_commit_id: number
-          github_repo_id: number
           id: string
           project_id: string
           updated_at: string | null
@@ -198,8 +254,6 @@ export type Database = {
           commit_sha: string
           commit_short_description?: string | null
           created_at?: string | null
-          github_commit_id: number
-          github_repo_id: number
           id?: string
           project_id: string
           updated_at?: string | null
@@ -209,8 +263,6 @@ export type Database = {
           commit_sha?: string
           commit_short_description?: string | null
           created_at?: string | null
-          github_commit_id?: number
-          github_repo_id?: number
           id?: string
           project_id?: string
           updated_at?: string | null
@@ -260,47 +312,6 @@ export type Database = {
           },
         ]
       }
-      recipes: {
-        Row: {
-          build_commands: Json | null
-          dockerfile_content: string | null
-          env_vars: Json | null
-          id: string
-          last_build_status: string | null
-          name: string
-          output_path: string | null
-          project_id: string
-        }
-        Insert: {
-          build_commands?: Json | null
-          dockerfile_content?: string | null
-          env_vars?: Json | null
-          id?: string
-          last_build_status?: string | null
-          name: string
-          output_path?: string | null
-          project_id: string
-        }
-        Update: {
-          build_commands?: Json | null
-          dockerfile_content?: string | null
-          env_vars?: Json | null
-          id?: string
-          last_build_status?: string | null
-          name?: string
-          output_path?: string | null
-          project_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "recipes_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       routes: {
         Row: {
           created_at: string
@@ -341,7 +352,7 @@ export type Database = {
           avatar_url?: string | null
           created_at?: string
           github_username: string
-          id: string
+          id?: string
         }
         Update: {
           avatar_url?: string | null
@@ -407,106 +418,106 @@ type DefaultSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof Database },
+  | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+  | { schema: keyof Database },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof Database
   }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+  ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+    Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+  : never = never,
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+    Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
-    ? R
-    : never
+  ? R
+  : never
   : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
-    : never
+    DefaultSchema["Views"])
+  ? (DefaultSchema["Tables"] &
+    DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+      Row: infer R
+    }
+  ? R
+  : never
+  : never
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+  | keyof DefaultSchema["Tables"]
+  | { schema: keyof Database },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof Database
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+  ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  : never = never,
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
-    }
-    ? I
-    : never
+    Insert: infer I
+  }
+  ? I
+  : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Insert: infer I
-      }
-      ? I
-      : never
-    : never
+  ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+    Insert: infer I
+  }
+  ? I
+  : never
+  : never
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+  | keyof DefaultSchema["Tables"]
+  | { schema: keyof Database },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof Database
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+  ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  : never = never,
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
-    }
-    ? U
-    : never
+    Update: infer U
+  }
+  ? U
+  : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Update: infer U
-      }
-      ? U
-      : never
-    : never
+  ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+    Update: infer U
+  }
+  ? U
+  : never
+  : never
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
-    | { schema: keyof Database },
+  | keyof DefaultSchema["Enums"]
+  | { schema: keyof Database },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
     schema: keyof Database
   }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+  ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+  : never = never,
 > = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
   ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-    : never
+  ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+  : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof Database },
+  | keyof DefaultSchema["CompositeTypes"]
+  | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof Database
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+  ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+  : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
+  ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : never
 
 export const Constants = {
   public: {

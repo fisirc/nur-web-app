@@ -16,6 +16,8 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
   const logs = useLogsStreaming({ function_id: functionId });
   const logsContainerRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [maxLogsHeight, setMaxLogsHeight] = useState('calc(100vh - 400px)');
 
   // Copy log to clipboard
   const copyLogToClipboard = async (log: any) => {
@@ -55,6 +57,23 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
     }
   }, [filteredLogs]);
 
+  // Calculate available height for logs container (sadly i had to do this)
+  useEffect(() => {
+    const calculateMaxHeight = () => {
+      if (headerRef.current) {
+        const headerRect = headerRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const reservedSpace = 20; // Some padding/margin space
+        const availableHeight = viewportHeight - headerRect.bottom - reservedSpace;
+        setMaxLogsHeight(`${Math.max(200, availableHeight)}px`);
+      }
+    };
+
+    calculateMaxHeight();
+    window.addEventListener('resize', calculateMaxHeight);
+    return () => window.removeEventListener('resize', calculateMaxHeight);
+  }, [fnDeployment.data]);
+
   if (fn.isLoading) {
     return null;
   }
@@ -64,102 +83,104 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
   }
 
   return (
-    <div className="flex flex-col px-6 pt-6 w-full">
-      <header>
-        <h2 className="text-xl mb-5">
-          <span className="text-muted-foreground">Funciones /</span>&nbsp;<span className="text-foreground">{fn.data.name}</span>
-        </h2>
-      </header>
-      <div className="flex text-sm flex-col w-full bg-card overflow-hidden">
-        <div className="flex p-4 gap-12">
-          <div className="flex-col">
-            <div className="mb-2">Descripción</div>
-            <div className="py-2">
-              La función llamada {fn.data.name}
+    <div className="flex flex-col px-6 pt-6 w-full h-full">
+      <div ref={headerRef}>
+        <header>
+          <h2 className="text-xl mb-5">
+            <span className="text-muted-foreground">Funciones /</span>&nbsp;<span className="text-foreground">{fn.data.name}</span>
+          </h2>
+        </header>
+        <div className="flex text-sm flex-col w-full bg-card overflow-hidden">
+          <div className="flex p-4 gap-12">
+            <div className="flex-col">
+              <div className="mb-2">Descripción</div>
+              <div className="py-2">
+                Función {fn.data.name} usada como handler HTTP
+              </div>
+            </div>
+            <div className="flex-col">
+              <div className="mb-2">Estado</div>
+              <div className="py-2">
+                🟢 Activo y listo
+              </div>
             </div>
           </div>
-          <div className="flex-col">
-            <div className="mb-2">Estado</div>
-            <div className="py-2">
-              🟢 Activo y listo
-            </div>
-          </div>
-        </div>
-        {
-          fnDeployment.data && fnDeployment.data.project_build_id && (
-            <div className="flex px-4 mb-4">
-              <div className="flex gap-8 bg-input w-full rounded-md p-4 space-y-4">
-                <div className="m-0">
-                  <div className="mb-2 font-medium">Commit</div>
-                  <div className="flex items-center gap-2">
-                    <GitCommit className="size-4 text-muted-foreground" />
-                    <span className="font-mono">
-                      {fnDeployment.data.project_build_id.commit_sha?.substring(0, 7)}
-                    </span>
-                    <span className="text-muted-foreground">
-                      {fnDeployment.data.project_build_id.commit_short_description || "Sin descripción"}
-                    </span>
+          {
+            fnDeployment.data && fnDeployment.data.project_build_id && (
+              <div className="flex px-4 mb-4">
+                <div className="flex gap-8 bg-input w-full rounded-md p-4 space-y-4">
+                  <div className="m-0">
+                    <div className="mb-2 font-medium">Commit</div>
+                    <div className="flex items-center gap-2">
+                      <GitCommit className="size-4 text-muted-foreground" />
+                      <span className="font-mono">
+                        {fnDeployment.data.project_build_id.commit_sha?.substring(0, 7)}
+                      </span>
+                      <span className="text-muted-foreground">
+                        {fnDeployment.data.project_build_id.commit_short_description || "Sin descripción"}
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                <div className="m-0">
-                  <div className="mb-2 font-medium">Branch</div>
-                  <div className="flex items-center gap-2">
-                    <GitBranch className="size-4 text-muted-foregrhighlightSearchTermound" />
-                    <span className="">
-                      {fnDeployment.data.project_build_id.branch_name}
-                    </span>
+                  <div className="m-0">
+                    <div className="mb-2 font-medium">Branch</div>
+                    <div className="flex items-center gap-2">
+                      <GitBranch className="size-4 text-muted-foregrhighlightSearchTermound" />
+                      <span className="">
+                        {fnDeployment.data.project_build_id.branch_name}
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                <div className="m-0">
-                  <div className="mb-2 font-medium">Fecha</div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="size-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">
-                      {fnDeployment.data.project_build_id.created_at && toESString(fnDeployment.data.project_build_id.created_at)}
-                    </span>
+                  <div className="m-0">
+                    <div className="mb-2 font-medium">Fecha</div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="size-4 text-muted-foreground" />
+                      <span className="text-muted-foreground">
+                        {fnDeployment.data.project_build_id.created_at && toESString(fnDeployment.data.project_build_id.created_at)}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )
-        }
-      </div>
-      <div className="mt-1 mb-3 pl-2">
-        {/* <h3 className="text-lg">Logs stream</h3> */}
-      </div>
-      <div className="mb-3 flex items-center gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-4" />
-          <Input
-            type="text"
-            placeholder="Buscar logs..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
+            )
+          }
         </div>
-        {searchTerm && (
-          <span className="text-sm text-muted-foreground">
-            {filteredLogs.length} de {logs.length} logs
-          </span>
-        )}
+        <div className="mt-1 mb-3 pl-2">
+          {/* <h3 className="text-lg">Logs stream</h3> */}
+        </div>
+        <div className="mb-3 flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-4" />
+            <Input
+              type="text"
+              placeholder="Buscar logs..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          {searchTerm && (
+            <span className="text-sm text-muted-foreground">
+              {filteredLogs.length} de {logs.length} logs
+            </span>
+          )}
+        </div>
       </div>
-      <div className="flex flex-col mb-3 bg-sidebar">
+      <div className="flex flex-col mb-3 bg-sidebar min-h-0" style={{ maxHeight: maxLogsHeight }}>
         <div
           ref={logsContainerRef}
-          className="overflow-y-scroll max-h-128 flex justify-end p-4 space-y-2 font-mono text-sm"
+          className="overflow-y-auto h-full p-4 font-mono text-[0.85rem]"
           style={{
             scrollbarWidth: 'thin',
           }}
         >
           {filteredLogs.length === 0 ? (
-            <div className="text-gray-500 text-center py-8 flex-1 flex items-center justify-center">
+            <div className="text-gray-500 text-center py-8 h-full flex items-center justify-center">
               {searchTerm ? "No se encontraron logs que coincidan con la búsqueda" : "No hay logs disponibles"}
             </div>
           ) : (
-            <div className="w-full space-y-2">
+            <div className="space-y-2">
               {filteredLogs.map((log) => (
                 <div
                   key={log.id}

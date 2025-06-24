@@ -2,7 +2,6 @@ import supabase from "@/services/supabase";
 
 import type { Member, Organization } from "../types";
 import type { Project } from "@/features/projects/types";
-import type { Func } from "@/features/functions/types";
 
 export default class OrgService {
   static getOrganization = async (org_id: string): Promise<Organization> => {

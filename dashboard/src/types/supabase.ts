@@ -54,37 +54,95 @@ export type Database = {
           },
         ]
       }
-      functions: {
+      function_executions: {
         Row: {
+          created_at: string
+          function_id: string
           id: string
-          last_invocation: string
-          name: string
-          recipe_id: string
-          size_kb: number | null
-          wasm_path: string
+          request: string | null
+          status_code: number
         }
         Insert: {
+          created_at?: string
+          function_id: string
           id?: string
-          last_invocation: string
-          name: string
-          recipe_id: string
-          size_kb?: number | null
-          wasm_path: string
+          request?: string | null
+          status_code: number
         }
         Update: {
+          created_at?: string
+          function_id?: string
           id?: string
-          last_invocation?: string
-          name?: string
-          recipe_id?: string
-          size_kb?: number | null
-          wasm_path?: string
+          request?: string | null
+          status_code?: number
         }
         Relationships: [
           {
-            foreignKeyName: "functions_recipe_id_fkey"
-            columns: ["recipe_id"]
+            foreignKeyName: "function_executions_function_id_fkey"
+            columns: ["function_id"]
             isOneToOne: false
-            referencedRelation: "recipes"
+            referencedRelation: "functions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      function_logs: {
+        Row: {
+          created_at: string
+          function_id: string
+          id: string
+          message: string
+        }
+        Insert: {
+          created_at?: string
+          function_id: string
+          id?: string
+          message: string
+        }
+        Update: {
+          created_at?: string
+          function_id?: string
+          id?: string
+          message?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "function_logs_function_id_fkey"
+            columns: ["function_id"]
+            isOneToOne: false
+            referencedRelation: "functions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      functions: {
+        Row: {
+          id: string
+          last_invocation: string | null
+          name: string
+          project_id: string
+          size_kb: number | null
+        }
+        Insert: {
+          id?: string
+          last_invocation?: string | null
+          name: string
+          project_id: string
+          size_kb?: number | null
+        }
+        Update: {
+          id?: string
+          last_invocation?: string | null
+          name?: string
+          project_id?: string
+          size_kb?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "functions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
             referencedColumns: ["id"]
           },
         ]
@@ -187,8 +245,6 @@ export type Database = {
           commit_sha: string
           commit_short_description: string | null
           created_at: string | null
-          github_commit_id: number
-          github_repo_id: number
           id: string
           project_id: string
           updated_at: string | null
@@ -198,8 +254,6 @@ export type Database = {
           commit_sha: string
           commit_short_description?: string | null
           created_at?: string | null
-          github_commit_id: number
-          github_repo_id: number
           id?: string
           project_id: string
           updated_at?: string | null
@@ -209,8 +263,6 @@ export type Database = {
           commit_sha?: string
           commit_short_description?: string | null
           created_at?: string | null
-          github_commit_id?: number
-          github_repo_id?: number
           id?: string
           project_id?: string
           updated_at?: string | null
@@ -260,47 +312,6 @@ export type Database = {
           },
         ]
       }
-      recipes: {
-        Row: {
-          build_commands: Json | null
-          dockerfile_content: string | null
-          env_vars: Json | null
-          id: string
-          last_build_status: string | null
-          name: string
-          output_path: string | null
-          project_id: string
-        }
-        Insert: {
-          build_commands?: Json | null
-          dockerfile_content?: string | null
-          env_vars?: Json | null
-          id?: string
-          last_build_status?: string | null
-          name: string
-          output_path?: string | null
-          project_id: string
-        }
-        Update: {
-          build_commands?: Json | null
-          dockerfile_content?: string | null
-          env_vars?: Json | null
-          id?: string
-          last_build_status?: string | null
-          name?: string
-          output_path?: string | null
-          project_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "recipes_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       routes: {
         Row: {
           created_at: string
@@ -341,7 +352,7 @@ export type Database = {
           avatar_url?: string | null
           created_at?: string
           github_username: string
-          id: string
+          id?: string
         }
         Update: {
           avatar_url?: string | null
@@ -392,7 +403,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      project_get_functions: {
+        Args: { project_id: string }
+        Returns: Record<string, unknown>
+      }
     }
     Enums: {
       deployment_status: "pending" | "in_progress" | "success" | "failed"

@@ -1,4 +1,6 @@
-const roleLabel = (value: string): string => {
+import type { Enums } from "@/types/supabase";
+
+export default (value: Enums<"member_role">): string => {
   switch (value) {
     case "owner":
       return "Propetiario";
@@ -9,7 +11,4 @@ const roleLabel = (value: string): string => {
     case "read-only":
       return "Solo escritura";
   }
-  throw new Error(`Unknown role value: ${value}`);
 };
-
-export default roleLabel;

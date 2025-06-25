@@ -405,7 +405,19 @@ export type Database = {
     Functions: {
       project_get_functions: {
         Args: { project_id: string }
-        Returns: Record<string, unknown>
+        Returns: {
+          id: string
+          name: string
+          size_kb: number
+          status: string
+          commit_sha: string
+          commit_date: string
+          commit_desc: string
+          route_id: string
+          route_path: string
+          method_id: string
+          method_name: string
+        }[]
       }
     }
     Enums: {

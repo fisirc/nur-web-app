@@ -17,6 +17,7 @@ import fuzzyFilter from "@/utils/fuzzy-filter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
+import statusAttribs from "@/features/functions/utils/status-attribs";
 
 const columns: ColumnDef<FunctionListElem>[] = [
   {
@@ -24,6 +25,29 @@ const columns: ColumnDef<FunctionListElem>[] = [
     header: "Nombre",
     accessorKey: "name",
     enableGlobalFilter: true,
+  },
+  {
+    id: "route_path",
+    header: "Ruta",
+    accessorKey: "route_path",
+  },
+  {
+    id: "status",
+    header: "Despliegue",
+    accessorFn: ({ status }) => {
+      return statusAttribs(status).label;
+    },
+    cell: ({ row }) => {
+      const { status } = row.original;
+      const { Icon, color, label } = statusAttribs(status);
+      return (
+        <div className="flex items-center gap-2">
+          <Icon className={`h-4 w-4 ${color}`} />
+          <span>{label}</span>
+        </div>
+      );
+    },
+    enableGlobalFilter: false,
   },
   {
     id: "latest_commit",
@@ -34,11 +58,11 @@ const columns: ColumnDef<FunctionListElem>[] = [
       const { commit_desc } = row.original;
       return (
         <div>
-          <div>{commit_date}</div>
-          <div className="flex items-center gap-2">
-            <GitPullRequestArrow size={16} />
+          <div className="flex items-center gap-1">
+            <GitPullRequestArrow className="text-muted-foreground/50 size-3" />
             <div>{commit_desc}</div>
           </div>
+          <div>{commit_date}</div>
         </div>
       );
     },
@@ -80,7 +104,7 @@ const ProjectPanelFunctions = () => {
   return (
     <ScrollArea className="grow">
       <div className="flex grow flex-col gap-8 p-8">
-        <h1 className="text-3xl">Equipo</h1>
+        <h1 className="text-3xl">Funciones</h1>
         <FunctionsTable functions={data} />
       </div>
     </ScrollArea>

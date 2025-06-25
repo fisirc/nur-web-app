@@ -88,7 +88,7 @@ const FunctionsTable = ({ functions }: { functions: FunctionList }) => {
           value={table.getState().globalFilter}
           onChange={(e) => table.setGlobalFilter(String(e.target.value))}
         />
-        <Button>Invitar miembros</Button>
+        <Button>¿Cómo crear funciones?</Button>
       </div>
       <DataTable table={table} />
     </div>

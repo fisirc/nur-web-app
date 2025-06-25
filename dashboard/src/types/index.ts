@@ -6,3 +6,6 @@ export type URLTab = {
   title: string;
   icon: LucideIcon | TablerIcon;
 };
+
+export type ArrayElement<ArrayType extends readonly unknown[]> = 
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;

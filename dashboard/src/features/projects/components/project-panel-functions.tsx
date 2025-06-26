@@ -20,14 +20,17 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import statusAttribs from "@/features/functions/utils/status-attribs";
 import SortHeader from "@/components/sort-header";
+import { Link } from "wouter";
 
 const columns: ColumnDef<FunctionListElem>[] = [
   {
     id: "name",
-    accessorKey: "name",
     sortingFn: "text",
     enableGlobalFilter: true,
     header: ({ column }) => <SortHeader col={column}>Nombre</SortHeader>,
+    cell: ({ row }) => (
+      <Link href={`/functions/${row.original.id}`}>{row.original.name}</Link>
+    ),
   },
   {
     id: "route_path",
@@ -38,9 +41,9 @@ const columns: ColumnDef<FunctionListElem>[] = [
   },
   {
     id: "status",
-    accessorFn: ({ status }) => statusAttribs(status).label,
     enableSorting: false,
     enableGlobalFilter: false,
+    accessorFn: ({ status }) => statusAttribs(status).label,
     header: ({ column }) => <SortHeader col={column}>Despliegue</SortHeader>,
     cell: ({ row }) => {
       const { status } = row.original;

@@ -24,7 +24,7 @@ const ProjectCard = (props: Project) => {
               {props.name}
             </CardTitle>
             <CardDescription className="truncate overflow-ellipsis">
-              https://example.com
+              https://github.com/{props.name}
             </CardDescription>
           </div>
         </CardHeader>

@@ -57,11 +57,11 @@ const OverviewCard = ({ currentProject }: { currentProject: Project }) => (
           <span className="text-muted-foreground">URL de despliegue</span>
           <a
             className="hover:underline"
-            href="https://deploy.nur.com"
+            href="https://nur.gateway.sanmarcux.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            https://deploy.nur.com
+            https://nur.gateway.sanmarcux.org/
           </a>
         </div>
         <div className="flex flex-col">

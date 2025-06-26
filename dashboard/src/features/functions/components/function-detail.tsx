@@ -88,20 +88,22 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
       const responseHeaders: Record<string, string> = {};
       res.headers.forEach((value, key) => {
         responseHeaders[key] = value;
-      });
-
-      // Try to parse response body
+      });      // Try to parse response body
       let responseBody: any;
       const contentType = res.headers.get('content-type') || '';
 
-      if (contentType.includes('application/json')) {
+      // Read the response body as text first
+      const responseText = await res.text();
+
+      // Then try to parse as JSON if content type suggests it
+      if (contentType.includes('application/json') && responseText.trim()) {
         try {
-          responseBody = await res.json();
+          responseBody = JSON.parse(responseText);
         } catch {
-          responseBody = await res.text();
+          responseBody = responseText;
         }
       } else {
-        responseBody = await res.text();
+        responseBody = responseText;
       }
 
       setResponse({

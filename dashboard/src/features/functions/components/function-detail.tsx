@@ -95,7 +95,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
       <div ref={headerRef}>
         <header>
           <h2 className="mb-5 text-xl">
-            <Link href={`~/dashboard/project/${project.id}`}>
+            <Link href={`~/dashboard/project/${project.id}/functions`}>
               <span className="text-muted-foreground">Funciones /</span>
             </Link>
             &nbsp;

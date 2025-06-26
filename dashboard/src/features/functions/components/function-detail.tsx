@@ -55,7 +55,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
     if (logsContainerRef.current) {
       logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight;
     }
-  }, [filteredLogs]);
+  }, [logs.length]);
 
   // Calculate available height for logs container (sadly i had to do this)
   useEffect(() => {

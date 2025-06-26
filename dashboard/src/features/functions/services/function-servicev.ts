@@ -17,6 +17,7 @@ export default class FunctionService {
       .from("function_deployments")
       .select("*, project_build_id(*)")
       .eq("function_id", function_id)
+      .limit(1)
       .single();
 
     if (error) throw error;

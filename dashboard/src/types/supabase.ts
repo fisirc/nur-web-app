@@ -89,19 +89,19 @@ export type Database = {
       function_logs: {
         Row: {
           created_at: string
-          function_id: string | null
+          function_id: string
           id: string
           message: string
         }
         Insert: {
           created_at?: string
-          function_id?: string | null
+          function_id: string
           id?: string
           message: string
         }
         Update: {
           created_at?: string
-          function_id?: string | null
+          function_id?: string
           id?: string
           message?: string
         }
@@ -366,19 +366,19 @@ export type Database = {
         Row: {
           created_at: string
           organization_id: string
-          role: string
+          role: Database["public"]["Enums"]["member_role"]
           user_id: string
         }
         Insert: {
           created_at?: string
           organization_id: string
-          role: string
+          role?: Database["public"]["Enums"]["member_role"]
           user_id: string
         }
         Update: {
           created_at?: string
           organization_id?: string
-          role?: string
+          role?: Database["public"]["Enums"]["member_role"]
           user_id?: string
         }
         Relationships: [
@@ -403,10 +403,26 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      project_get_functions: {
+        Args: { project_id: string }
+        Returns: {
+          id: string
+          name: string
+          size_kb: number
+          status: Database["public"]["Enums"]["deployment_status"]
+          commit_sha: string
+          commit_date: string
+          commit_desc: string
+          route_id: string
+          route_path: string
+          method_id: string
+          method_name: string
+        }[]
+      }
     }
     Enums: {
       deployment_status: "pending" | "in_progress" | "success" | "failed"
+      member_role: "read-only" | "developer" | "admin" | "owner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -523,6 +539,7 @@ export const Constants = {
   public: {
     Enums: {
       deployment_status: ["pending", "in_progress", "success", "failed"],
+      member_role: ["read-only", "developer", "admin", "owner"],
     },
   },
 } as const

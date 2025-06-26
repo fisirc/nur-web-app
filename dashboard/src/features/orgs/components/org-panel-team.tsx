@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CircleUser, MoreHorizontal } from "lucide-react";
-import roleLabel from "../utils/roleLabel";
+import memberRoleLabel from "../utils/member-role-label";
 import type { Member } from "../types";
 
 const columns: ColumnDef<Member>[] = [
@@ -44,7 +44,7 @@ const columns: ColumnDef<Member>[] = [
   {
     id: "role",
     header: "Rol",
-    accessorFn: (row) => roleLabel(row.role),
+    accessorFn: (row) => memberRoleLabel(row.role),
     enableGlobalFilter: false,
   },
   {
@@ -95,6 +95,7 @@ const MembersTable = ({ members }: { members: Member[] }) => {
 };
 
 const OrgPanelTeam = () => {
+  1;
   const qr = useCurrentOrgMembers();
   const { data } = qr;
 

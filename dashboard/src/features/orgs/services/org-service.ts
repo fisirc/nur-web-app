@@ -24,7 +24,7 @@ export default class OrgService {
     return data.map((item) => ({
       ...item.users,
       role: item.role,
-    })) as Member[];
+    }));
   };
 
   static getProjects = async (org_id: string): Promise<Project[]> => {
@@ -33,6 +33,6 @@ export default class OrgService {
       .select()
       .eq("organization_id", org_id);
     if (error) throw error;
-    return data as Project[];
+    return data;
   };
 }

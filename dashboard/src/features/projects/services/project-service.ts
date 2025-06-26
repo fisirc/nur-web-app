@@ -1,6 +1,7 @@
 import supabase from "@/services/supabase";
 import type { Project } from "../types";
 import type { Organization } from "@/features/orgs/types";
+import type { FunctionList } from "@/features/functions/types";
 
 export default class ProjectService {
   static getProject = async (project_id: string): Promise<Project> => {
@@ -26,4 +27,11 @@ export default class ProjectService {
     if (error) throw error;
     return data.organizations;
   };
+
+  static getFunctions = async (project_id: string): Promise<FunctionList> => {
+    const { data, error } = await supabase.rpc('project_get_functions', { project_id })
+    console.log(error);
+    if (error) throw error;
+    return data;
+  }
 }

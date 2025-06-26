@@ -15,14 +15,6 @@ type StatusAttribs = {
 
 export default (value: Enums<"deployment_status">): StatusAttribs => {
   switch (value) {
-    // case "pending":
-    //   return "Pendiente";
-    // case "in_progress":
-    //   return "En progreso";
-    // case "success":
-    //   return "Listo";
-    // case "failed":
-    //   return "Fallido";
     case "pending":
       return {
         label: "Pendiente",

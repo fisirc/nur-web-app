@@ -8,6 +8,7 @@ import type {
 import {
   getCoreRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
   useReactTable,
   type ColumnDef,
 } from "@tanstack/react-table";
@@ -18,25 +19,29 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import statusAttribs from "@/features/functions/utils/status-attribs";
+import SortHeader from "@/components/sort-header";
 
 const columns: ColumnDef<FunctionListElem>[] = [
   {
     id: "name",
-    header: "Nombre",
     accessorKey: "name",
+    sortingFn: "text",
     enableGlobalFilter: true,
+    header: ({ column }) => <SortHeader col={column}>Nombre</SortHeader>,
   },
   {
     id: "route_path",
-    header: "Ruta",
     accessorKey: "route_path",
+    sortingFn: "text",
+    enableColumnFilter: true,
+    header: ({ column }) => <SortHeader col={column}>Ruta</SortHeader>,
   },
   {
     id: "status",
-    header: "Despliegue",
-    accessorFn: ({ status }) => {
-      return statusAttribs(status).label;
-    },
+    accessorFn: ({ status }) => statusAttribs(status).label,
+    enableSorting: false,
+    enableGlobalFilter: false,
+    header: ({ column }) => <SortHeader col={column}>Despliegue</SortHeader>,
     cell: ({ row }) => {
       const { status } = row.original;
       const { Icon, color, label } = statusAttribs(status);
@@ -47,12 +52,13 @@ const columns: ColumnDef<FunctionListElem>[] = [
         </div>
       );
     },
-    enableGlobalFilter: false,
   },
   {
     id: "latest_commit",
-    header: "Último commit",
     accessorKey: "commit_date",
+    sortingFn: "datetime",
+    enableGlobalFilter: false,
+    header: ({ column }) => <SortHeader col={column}>Último commit</SortHeader>,
     cell: ({ row }) => {
       const commit_date = dateToESString(new Date(row.original.commit_date));
       const { commit_desc } = row.original;
@@ -66,7 +72,6 @@ const columns: ColumnDef<FunctionListElem>[] = [
         </div>
       );
     },
-    enableGlobalFilter: false,
   },
 ];
 
@@ -77,6 +82,7 @@ const FunctionsTable = ({ functions }: { functions: FunctionList }) => {
     globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (

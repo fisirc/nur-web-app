@@ -20,6 +20,7 @@ import HeaderLogo from "@/components/header-logo";
 import useCurrentOrg from "@/features/orgs/hooks/use-current-org";
 import FunctionDetail from "@/features/functions/components/function-detail";
 import ProjectPanelFunctions from "./project-panel-functions";
+import ProjectPanelRoutes from "./project-panel-routes";
 
 const tabs: URLTab[] = [
   {
@@ -109,7 +110,9 @@ const ProjectDashboard = () => {
           <Route path="/functions">
             <ProjectPanelFunctions />
           </Route>
-          <Route path="/routes">TODO: rutas de la API</Route>
+          <Route path="/routes">
+            <ProjectPanelRoutes />
+          </Route>
           <Route path="/settings">TODO: settings del proyecto</Route>
           <Route path="/functions/:function_id">
             {(params) => <FunctionDetail functionId={params.function_id} />}

@@ -1,24 +1,49 @@
 import type { TreeDataItem } from "@/components/tree-view";
 import type { ApiRoute } from "../types";
 
-// TODO: make recursive function that forms an actual tree based on paths
+function createNode(
+  route: ApiRoute,
+  segments: string[],
+  tree: TreeDataItem[] | undefined,
+): void {
+  const name = segments.shift();
 
-const routesToTree = (routes: ApiRoute[]): TreeDataItem | null => {
-  const root = routes.find((route) => route.path_absolute === "/");
-  if (!root) return null;
+  const antecessor = tree.find((node) => name === node.name);
 
-  const children = routes
-    .filter(
-      (route) =>
-        route.path_absolute !== "/" && route.path_absolute.startsWith("/"),
-    )
-    .map((route) => ({ id: route.id, name: route.path_absolute }));
+  if (!antecessor) {
+    tree.push({
+      id: route.id,
+      name,
+      children: [],
+    });
+    if (segments.length !== 0) {
+      createNode(route, segments, tree[tree.length - 1].children);
+    }
+  } else {
+    createNode(route, segments, antecessor.children);
+  }
+}
 
-  return {
+export default function parse(routes: ApiRoute[]): TreeDataItem | null {
+  if (!routes.length) return null;
+
+  const root = routes[0];
+
+  const tree: TreeDataItem = {
     id: root.id,
-    name: root.path_absolute,
-    children,
+    name: "",
+    children: [],
   };
-};
 
-export default routesToTree;
+  routes
+    .slice(-1)
+    .forEach((route) =>
+      createNode(
+        route,
+        route.path_absolute.split("/").slice(-1),
+        tree.children as TreeDataItem[],
+      ),
+    );
+
+  return tree;
+}

@@ -125,7 +125,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
   // Clear request form
   const clearRequest = () => {
     setHttpMethod("GET");
-    setRequestUrl(fn?.id ? `https://nur.gateway.sanmarcux.org/${fn.id}/` : "");
+    setRequestUrl(fn?.id ? `https://nur.paoloose.site/${fn.id}/` : "");
     setRequestHeaders("");
     setRequestBody("");
     setResponse(null);
@@ -188,7 +188,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
   // Initialize request URL when function data is available
   useEffect(() => {
     if (fn?.id && !requestUrl) {
-      setRequestUrl(`https://nur.gateway.sanmarcux.org/${fn.id}/`);
+      setRequestUrl(`https://nur.paoloose.site/${fn.id}/`);
     }
   }, [fn?.id, requestUrl, setRequestUrl]);
 
@@ -226,18 +226,18 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
               <div className="mb-2 font-medium">Endpoint</div>
               <div className="flex items-center gap-2">
                 <a
-                  href={`https://nur.gateway.sanmarcux.org/${fn.id}/`}
+                  href={`https://nur.paoloose.site/${fn.id}/`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-background px-3 py-2 rounded text-sm font-mono flex-1 hover:bg-muted transition-all cursor-pointer border border-border hover:border-primary/50 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline decoration-dotted underline-offset-2 flex items-center gap-2 group"
                 >
-                  <span>https://nur.gateway.sanmarcux.org/{fn.id}/[path]</span>
+                  <span>https://nur.paoloose.site/{fn.id}/[path]</span>
                   <ExternalLink className="size-3 opacity-60 group-hover:opacity-100 transition-opacity" />
                 </a>
                 <button
                   onClick={async () => {
                     try {
-                      await navigator.clipboard.writeText(`https://nur.gateway.sanmarcux.org/${fn.id}/`);
+                      await navigator.clipboard.writeText(`https://nur.paoloose.site/${fn.id}/`);
                     } catch (err) {
                       console.error("Failed to copy endpoint:", err);
                     }
@@ -488,11 +488,10 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                           <div className="mb-4">
                             <div className="flex items-center gap-2 mb-2">
                               <span className="text-sm font-medium">Status:</span>
-                              <span className={`px-2 py-1 rounded text-xs font-mono ${
-                                response.status && response.status >= 200 && response.status < 300
+                              <span className={`px-2 py-1 rounded text-xs font-mono ${response.status && response.status >= 200 && response.status < 300
                                   ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                                   : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                              }`}>
+                                }`}>
                                 {response.status} {response.statusText}
                               </span>
                             </div>

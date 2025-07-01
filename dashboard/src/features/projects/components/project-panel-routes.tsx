@@ -6,6 +6,7 @@ import routesToTree from "@/features/routes/utils/routes-to-tree";
 import { TreeView } from "@/components/tree-view";
 import { Button } from "@/components/ui/button";
 import { useMemo } from "react";
+import { useLocation } from "wouter";
 
 const NewRouteButton = () => {
   return (
@@ -17,13 +18,17 @@ const NewRouteButton = () => {
 
 const RoutesPanel = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);
+  const [, navigate] = useLocation();
 
   return (
     <div className="border-border flex flex-1 flex-col items-center rounded-md border">
       <NewRouteButton />
       <div className="px-8 py-12">
         {tree ? (
-          <TreeView data={tree} />
+          <TreeView
+            data={tree}
+            onSelectChange={(item) => navigate(("/" + item?.id) as string)}
+          />
         ) : (
           <div className="size-xs text-muted-foreground flex items-center">
             No hay rutas creadas

@@ -110,7 +110,7 @@ const ProjectDashboard = () => {
           <Route path="/functions">
             <ProjectPanelFunctions />
           </Route>
-          <Route path="/routes">
+          <Route path="/routes" nest>
             <ProjectPanelRoutes />
           </Route>
           <Route path="/settings">TODO: settings del proyecto</Route>

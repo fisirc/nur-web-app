@@ -23,7 +23,6 @@ const createNode = (
         throw Error(`exact duplicate of route ${route.path_absolute} found`);
       }
     } else {
-      // create leaf
       subtree.push({
         id: route.id,
         name,
@@ -40,10 +39,7 @@ const createNode = (
       };
       subtree.push(antecessor);
     } else if (!antecessor.children) {
-      console.error(antecessor);
-      throw Error(
-        `antecessor node of route ${route.path_absolute} created as leaf`,
-      );
+      antecessor.children = [];
     }
     createNode(route, segments, antecessor.children as TreeDataItem[]);
   }

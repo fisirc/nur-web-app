@@ -16,13 +16,11 @@ const NewRouteButton = () => {
 };
 
 const RoutesPanel = ({ routes }: { routes: ApiRoute[] }) => {
-  // const tree = useMemo(() => routesToTree(routes), [routes]);
-
-  console.log(routes);
+  const tree = useMemo(() => routesToTree(routes), [routes]);
 
   return (
     <div className="border-border flex flex-1 flex-col items-center rounded-md border">
-      {/* <NewRouteButton />
+      <NewRouteButton />
       <div className="px-8 py-12">
         {tree ? (
           <TreeView data={tree} />
@@ -31,7 +29,7 @@ const RoutesPanel = ({ routes }: { routes: ApiRoute[] }) => {
             No hay rutas creadas
           </div>
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

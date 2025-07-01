@@ -4,39 +4,31 @@ import useCurrentProjectRoutes from "../hooks/use-current-project-routes";
 import QueryHandler from "@/components/query-handler";
 import routesToTree from "@/features/routes/utils/routes-to-tree";
 import { TreeView } from "@/components/tree-view";
-import { Button } from "@/components/ui/button";
 import { useMemo } from "react";
 import { useLocation } from "wouter";
 
-const NewRouteButton = () => {
-  return (
-    <div className="flex items-center p-4">
-      <Button>Añadir ruta</Button>
-    </div>
-  );
-};
-
-const RoutesPanel = ({ routes }: { routes: ApiRoute[] }) => {
+const RoutesTree = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);
   const [, navigate] = useLocation();
 
   return (
-    <div className="border-border flex flex-1 flex-col items-center rounded-md border">
-      <NewRouteButton />
-      <div className="px-8 py-12">
-        {tree ? (
-          <TreeView
-            data={tree}
-            onSelectChange={(item) => navigate(("/" + item?.id) as string)}
-          />
-        ) : (
-          <div className="size-xs text-muted-foreground flex items-center">
-            No hay rutas creadas
-          </div>
-        )}
-      </div>
+    <div className="border-border flex-1 shrink-0 rounded-md border">
+      {tree ? (
+        <TreeView
+          data={tree}
+          onSelectChange={(item) => navigate(("/" + item?.id) as string)}
+        />
+      ) : (
+        <div className="size-xs text-muted-foreground flex items-center">
+          No hay rutas creadas
+        </div>
+      )}
     </div>
   );
+};
+
+const RoutePanel = () => {
+  return <div className="flex-5">todo</div>;
 };
 
 export default () => {
@@ -47,8 +39,9 @@ export default () => {
 
   return (
     <ScrollArea className="grow">
-      <div className="flex grow flex-row gap-8 p-8">
-        <RoutesPanel routes={routes} />
+      <div className="flex flex-row gap-8 p-8">
+        <RoutesTree routes={routes} />
+        <RoutePanel />
       </div>
     </ScrollArea>
   );

@@ -5,7 +5,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const treeVariants = cva(
-  "group hover:before:opacity-100 before:absolute before:rounded-lg before:left-0 px-2 before:w-full before:opacity-0 before:bg-accent/70 before:h-[2rem] before:-z-10",
+  "group hover:before:opacity-50 before:absolute before:rounded-lg before:left-0 px-2 before:w-full before:opacity-0 before:bg-accent/70 before:h-[2rem] before:-z-10",
 );
 
 const selectedTreeVariants = cva(
@@ -271,8 +271,9 @@ const TreeNode = ({
       onValueChange={(s) => setValue(s)}
     >
       <AccordionPrimitive.Item value={item.id}>
-        <AccordionTrigger
+        <AccordionPrimitive.Header
           className={cn(
+            "flex w-full flex-1 items-center gap-2 py-2 transition-all",
             treeVariants(),
             selectedItemId === item.id && selectedTreeVariants(),
             isDragOver && dragOverVariants(),
@@ -281,12 +282,19 @@ const TreeNode = ({
             handleSelectChange(item);
             item.onClick?.();
           }}
-          draggable={!!item.draggable}
-          onDragStart={onDragStart}
-          onDragOver={onDragOver}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
         >
+          <AccordionPrimitive.Trigger
+            className={
+              "bg-accent/30 hover:bg-accent ml-1 flex size-5 items-center justify-center rounded-sm first:[&[data-state=open]>svg]:rotate-90"
+            }
+            draggable={!!item.draggable}
+            onDragStart={onDragStart}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={onDrop}
+          >
+            <ChevronRight className="text-foreground/50 size-3 shrink-0 transition-transform duration-200" />
+          </AccordionPrimitive.Trigger>
           <TreeIcon
             item={item}
             isSelected={selectedItemId === item.id}
@@ -297,8 +305,8 @@ const TreeNode = ({
           <TreeActions isSelected={selectedItemId === item.id}>
             {item.actions}
           </TreeActions>
-        </AccordionTrigger>
-        <AccordionContent className="ml-4 border-l pl-1">
+        </AccordionPrimitive.Header>
+        <AccordionContent className="ml-4 pl-1">
           <TreeItem
             data={item.children ? item.children : item}
             selectedItemId={selectedItemId}
@@ -413,26 +421,6 @@ const TreeLeaf = React.forwardRef<
   },
 );
 TreeLeaf.displayName = "TreeLeaf";
-
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header>
-    <AccordionPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        "flex w-full flex-1 items-center py-2 transition-all first:[&[data-state=open]>svg]:rotate-90",
-        className,
-      )}
-      {...props}
-    >
-      <ChevronRight className="text-accent-foreground/50 mr-1 h-4 w-4 shrink-0 transition-transform duration-200" />
-      {children}
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
-));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,

@@ -5,14 +5,15 @@ import QueryHandler from "@/components/query-handler";
 import routesToTree from "@/features/routes/utils/routes-to-tree";
 import { TreeView } from "@/components/tree-view";
 import { useMemo } from "react";
-import { useLocation } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
+import useCurrentRoute from "@/features/routes/hooks/useCurrentRoute";
 
 const RoutesTree = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);
   const [, navigate] = useLocation();
 
   return (
-    <div className="border-border flex-1 shrink-0 rounded-md border">
+    <div className="border-border rounded-md border">
       {tree ? (
         <TreeView
           data={tree}
@@ -27,9 +28,27 @@ const RoutesTree = ({ routes }: { routes: ApiRoute[] }) => {
   );
 };
 
-const RoutePanel = () => {
-  return <div className="flex-5">todo</div>;
+const DetailsCard = ({ route }: { route: ApiRoute }) => (
+  <div>{route.path_absolute}</div>
+);
+
+const RouteDetail = () => {
+  const routeQr = useCurrentRoute();
+  const route = routeQr.data;
+  if (!route) return <QueryHandler qr={routeQr} />;
+
+  return (
+    <div className="flex gap-8">
+      <DetailsCard route={route} />
+    </div>
+  );
 };
+
+const NoRouteSelected = () => (
+  <div className="flex items-center justify-center">
+    Selecciona una ruta para ver sus detalles
+  </div>
+);
 
 export default () => {
   const routesQr = useCurrentProjectRoutes();
@@ -40,8 +59,19 @@ export default () => {
   return (
     <ScrollArea className="grow">
       <div className="flex flex-row gap-8 p-8">
-        <RoutesTree routes={routes} />
-        <RoutePanel />
+        <div className="flex-1 shrink-0">
+          <RoutesTree routes={routes} />
+        </div>
+        <div className="flex-5">
+          <Switch>
+            <Route path="/:route_id">
+              <RouteDetail />
+            </Route>
+            <Route>
+              <NoRouteSelected />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </ScrollArea>
   );

@@ -6,7 +6,7 @@ export default class RouteService {
     const { data, error } = await supabase
       .from('routes')
       .select()
-      .eq('route_id', route_id)
+      .eq('id', route_id)
       .limit(1)
       .single();
     if (error) throw error;

@@ -7,6 +7,15 @@ import { TreeView } from "@/components/tree-view";
 import { useMemo } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import useCurrentRoute from "@/features/routes/hooks/useCurrentRoute";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { toESString } from "@/utils/date-formatter";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const RoutesTree = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);
@@ -28,9 +37,49 @@ const RoutesTree = ({ routes }: { routes: ApiRoute[] }) => {
   );
 };
 
-const DetailsCard = ({ route }: { route: ApiRoute }) => (
-  <div>{route.path_absolute}</div>
-);
+const DetailsCard = ({ route }: { route: ApiRoute }) => {
+  const segments = route.path_absolute.split("/");
+  segments[0] = "/";
+
+  return (
+    <Card className="grow">
+      <CardHeader>
+        <Breadcrumb>
+          <BreadcrumbList className="text-xl">
+            {segments[1] !== "" ? (
+              segments.map((segment, i) =>
+                i !== segments.length - 1 ? (
+                  <>
+                    <BreadcrumbItem>
+                      <BreadcrumbPage className="text-muted-foreground">
+                        {segment}
+                      </BreadcrumbPage>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                  </>
+                ) : (
+                  <BreadcrumbPage>{segment}</BreadcrumbPage>
+                ),
+              )
+            ) : (
+              <BreadcrumbPage>{segments[0]}</BreadcrumbPage>
+            )}
+          </BreadcrumbList>
+        </Breadcrumb>
+      </CardHeader>
+      <CardContent className="flex flex-row gap-16 text-sm">
+        <div className="flex flex-col">
+          <div className="text-muted-foreground">Creada el</div>
+          <div>{toESString(route.created_at)}</div>
+        </div>
+        <div className="flex flex-col">
+          <div className="text-muted-foreground">ID</div>
+          <div>{route.id}</div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 const RouteDetail = () => {
   const routeQr = useCurrentRoute();

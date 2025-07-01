@@ -1,5 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ApiRoute } from "@/features/routes/types";
+import type { ApiRoute, MountedFunction } from "@/features/routes/types";
 import useCurrentProjectRoutes from "../hooks/use-current-project-routes";
 import QueryHandler from "@/components/query-handler";
 import routesToTree from "@/features/routes/utils/routes-to-tree";
@@ -16,6 +16,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import useCurrentRouteFunctions from "@/features/routes/hooks/use-current-route-functions";
 
 const RoutesTree = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);
@@ -45,7 +46,7 @@ const DetailsCard = ({ route }: { route: ApiRoute }) => {
     <Card className="grow">
       <CardHeader>
         <Breadcrumb>
-          <BreadcrumbList className="text-xl">
+          <BreadcrumbList className="text-2xl">
             {segments[1] !== "" ? (
               segments.map((segment, i) =>
                 i !== segments.length - 1 ? (
@@ -81,14 +82,28 @@ const DetailsCard = ({ route }: { route: ApiRoute }) => {
   );
 };
 
+const MountedFunctions = ({ functions }: { functions: MountedFunction[] }) => {
+  return (
+    <div className="flex grow flex-col gap-8">
+      <h2 className="text-lg">Funciones montadas</h2>
+    </div>
+  );
+};
+
 const RouteDetail = () => {
   const routeQr = useCurrentRoute();
+  const functionsQr = useCurrentRouteFunctions();
+
   const route = routeQr.data;
   if (!route) return <QueryHandler qr={routeQr} />;
 
+  const functions = functionsQr.data;
+  if (!functions) return <QueryHandler qr={functionsQr} />;
+
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-col gap-8">
       <DetailsCard route={route} />
+      <MountedFunctions functions={functions} />
     </div>
   );
 };

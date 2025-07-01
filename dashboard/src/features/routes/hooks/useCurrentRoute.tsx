@@ -6,7 +6,7 @@ const useCurrentRoute = () => {
   const { route_id } = useParams();
 
   if (!route_id)
-    throw new Error("useCurrentRoute called outside of a project context");
+    throw new Error("useCurrentRoute called outside of a route context");
 
   return useQuery({
     queryKey: ["route", route_id],

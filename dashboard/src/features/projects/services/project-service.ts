@@ -31,7 +31,6 @@ export default class ProjectService {
 
   static getFunctions = async (project_id: string): Promise<FunctionList> => {
     const { data, error } = await supabase.rpc('project_get_functions', { project_id })
-    console.log(error);
     if (error) throw error;
     return data;
   }
@@ -42,7 +41,6 @@ export default class ProjectService {
       .select()
       .eq("project_id", project_id)
       .order("path_absolute", { ascending: true });
-    console.log({ data, error })
     if (error) throw error;
     return data;
   }

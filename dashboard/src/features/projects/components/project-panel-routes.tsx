@@ -5,6 +5,7 @@ import QueryHandler from "@/components/query-handler";
 import routesToTree from "@/features/routes/utils/routes-to-tree";
 import { TreeView } from "@/components/tree-view";
 import { Button } from "@/components/ui/button";
+import { useMemo } from "react";
 
 const NewRouteButton = () => {
   return (
@@ -15,11 +16,13 @@ const NewRouteButton = () => {
 };
 
 const RoutesPanel = ({ routes }: { routes: ApiRoute[] }) => {
-  const tree = routesToTree(routes);
+  // const tree = useMemo(() => routesToTree(routes), [routes]);
+
+  console.log(routes);
 
   return (
     <div className="border-border flex flex-1 flex-col items-center rounded-md border">
-      <NewRouteButton />
+      {/* <NewRouteButton />
       <div className="px-8 py-12">
         {tree ? (
           <TreeView data={tree} />
@@ -28,12 +31,10 @@ const RoutesPanel = ({ routes }: { routes: ApiRoute[] }) => {
             No hay rutas creadas
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
-
-const RouteDetail = () => {};
 
 export default () => {
   const routesQr = useCurrentProjectRoutes();

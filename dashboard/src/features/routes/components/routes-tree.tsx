@@ -40,7 +40,7 @@ type TreeProps = React.HTMLAttributes<HTMLDivElement> & {
   onDocumentDrag?: (sourceItem: TreeDataItem, targetItem: TreeDataItem) => void;
 };
 
-const TreeView = React.forwardRef<HTMLDivElement, TreeProps>(
+const RoutesTree = React.forwardRef<HTMLDivElement, TreeProps>(
   (
     {
       data,
@@ -142,7 +142,7 @@ const TreeView = React.forwardRef<HTMLDivElement, TreeProps>(
     );
   },
 );
-TreeView.displayName = "TreeView";
+RoutesTree.displayName = "RoutesTree";
 
 type TreeItemProps = TreeProps & {
   selectedItemId?: string;
@@ -480,4 +480,4 @@ const TreeActions = ({
   );
 };
 
-export { TreeView, type TreeDataItem };
+export { RoutesTree, type TreeDataItem };

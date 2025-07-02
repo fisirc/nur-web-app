@@ -3,7 +3,7 @@ import type { ApiRoute, MountedFunction } from "@/features/routes/types";
 import useCurrentProjectRoutes from "../hooks/use-current-project-routes";
 import QueryHandler from "@/components/query-handler";
 import routesToTree from "@/features/routes/utils/routes-to-tree";
-import { TreeView } from "@/components/tree-view";
+import { RoutesTree } from "@/features/routes/components/routes-tree";
 import { useMemo } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import useCurrentRoute from "@/features/routes/hooks/useCurrentRoute";
@@ -17,15 +17,20 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import useCurrentRouteFunctions from "@/features/routes/hooks/use-current-route-functions";
+import { Button } from "@/components/ui/button";
 
-const RoutesTree = ({ routes }: { routes: ApiRoute[] }) => {
+const NewMountedFunctionButton = () => {
+  return <Button>Montar función</Button>;
+};
+
+const RoutesTreePanel = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);
   const [, navigate] = useLocation();
 
   return (
     <div className="border-border rounded-md border">
       {tree ? (
-        <TreeView
+        <RoutesTree
           data={tree}
           onSelectChange={(item) => navigate(("/" + item?.id) as string)}
         />
@@ -124,7 +129,7 @@ export default () => {
     <ScrollArea className="grow">
       <div className="flex flex-row gap-8 p-8">
         <div className="flex-1 shrink-0">
-          <RoutesTree routes={routes} />
+          <RoutesTreePanel routes={routes} />
         </div>
         <div className="flex-5">
           <Switch>

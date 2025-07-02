@@ -1,4 +1,4 @@
-import type { TreeDataItem } from "@/components/tree-view";
+import type { TreeDataItem } from "@/features/routes/components/routes-tree";
 import type { ApiRoute } from "../types";
 
 const createNode = (

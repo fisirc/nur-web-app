@@ -6,7 +6,7 @@ import routesToTree from "@/features/routes/utils/routes-to-tree";
 import { RoutesTree } from "@/features/routes/components/routes-tree";
 import { useMemo } from "react";
 import { Route, Switch, useLocation } from "wouter";
-import useCurrentRoute from "@/features/routes/hooks/useCurrentRoute";
+import useCurrentRoute from "@/features/routes/hooks/use-current-route";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { toESString } from "@/utils/date-formatter";
 import {

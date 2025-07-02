@@ -88,6 +88,14 @@ const DetailsCard = ({ route }: { route: ApiRoute }) => {
 };
 
 const MountedFunctions = ({ functions }: { functions: MountedFunction[] }) => {
+  if (!functions.length)
+    return (
+      <div className="size-xs text-muted-foreground flex flex-row items-center justify-center gap-4">
+        No hay funciones montadas a esta ruta.
+        <NewMountedFunctionButton />
+      </div>
+    );
+
   return (
     <div className="flex grow flex-col gap-8">
       <h2 className="text-lg">Funciones montadas</h2>

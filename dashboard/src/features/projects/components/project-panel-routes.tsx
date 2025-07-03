@@ -1,5 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ApiRoute, MountedFunction } from "@/features/routes/types";
+import type { ApiRoute } from "@/features/routes/types";
 import useCurrentProjectRoutes from "../hooks/use-current-project-routes";
 import QueryHandler from "@/components/query-handler";
 import routesToTree from "@/features/routes/utils/routes-to-tree";

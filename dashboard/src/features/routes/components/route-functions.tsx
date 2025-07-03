@@ -44,6 +44,7 @@ const MountedFunctions = ({ functions }: { functions: MountedFunction[] }) => {
     globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    enableRowSelection: false,
   });
 
   if (!functions.length)

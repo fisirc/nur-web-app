@@ -122,7 +122,7 @@ const RouteDetail = () => {
 };
 
 const NoRouteSelected = () => (
-  <div className="flex items-center justify-center">
+  <div className="size-xs text-muted-foreground flex flex-row justify-center">
     Selecciona una ruta para ver sus detalles
   </div>
 );

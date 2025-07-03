@@ -3,6 +3,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronRight } from "lucide-react";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import { useLocation, useParams } from "wouter";
 
 const treeVariants = cva(
   "group hover:before:opacity-50 before:absolute before:rounded-lg before:left-0 px-2 before:w-full before:opacity-0 before:bg-accent/70 before:h-[2rem] before:-z-10",
@@ -55,9 +56,8 @@ const RoutesTree = React.forwardRef<HTMLDivElement, TreeProps>(
     },
     ref,
   ) => {
-    const [selectedItemId, setSelectedItemId] = React.useState<
-      string | undefined
-    >(initialSelectedItemId);
+    const [location] = useLocation();
+    const selectedItemId = location !== "/" ? location.slice(1) : undefined;
 
     const [draggedItem, setDraggedItem] = React.useState<TreeDataItem | null>(
       null,
@@ -65,7 +65,6 @@ const RoutesTree = React.forwardRef<HTMLDivElement, TreeProps>(
 
     const handleSelectChange = React.useCallback(
       (item: TreeDataItem | undefined) => {
-        setSelectedItemId(item?.id);
         if (onSelectChange) {
           onSelectChange(item);
         }

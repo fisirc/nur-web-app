@@ -33,13 +33,6 @@ const columns: ColumnDef<FunctionListElem>[] = [
     ),
   },
   {
-    id: "route_path",
-    accessorKey: "route_path",
-    sortingFn: "text",
-    enableColumnFilter: true,
-    header: ({ column }) => <SortHeader col={column}>Ruta</SortHeader>,
-  },
-  {
     id: "status",
     enableSorting: false,
     enableGlobalFilter: false,

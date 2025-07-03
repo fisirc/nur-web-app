@@ -7,21 +7,9 @@ import { RoutesTree } from "@/features/routes/components/routes-tree";
 import { useMemo } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import useCurrentRoute from "@/features/routes/hooks/use-current-route";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { toESString } from "@/utils/date-formatter";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import useCurrentRouteFunctions from "@/features/routes/hooks/use-current-route-functions";
-import { Button } from "@/components/ui/button";
-
-const NewMountedFunctionButton = () => {
-  return <Button>Montar función</Button>;
-};
+import RouteDetailsCard from "@/features/routes/components/route-details-card";
+import MountedFunctions from "@/features/routes/components/mounted-functions";
 
 const RoutesTreePanel = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);
@@ -43,66 +31,6 @@ const RoutesTreePanel = ({ routes }: { routes: ApiRoute[] }) => {
   );
 };
 
-const DetailsCard = ({ route }: { route: ApiRoute }) => {
-  const segments = route.path_absolute.split("/");
-  segments[0] = "/";
-
-  return (
-    <Card className="grow">
-      <CardHeader>
-        <Breadcrumb>
-          <BreadcrumbList className="text-2xl">
-            {segments[1] !== "" ? (
-              segments.map((segment, i) =>
-                i !== segments.length - 1 ? (
-                  <>
-                    <BreadcrumbItem>
-                      <BreadcrumbPage className="text-muted-foreground">
-                        {segment}
-                      </BreadcrumbPage>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                  </>
-                ) : (
-                  <BreadcrumbPage>{segment}</BreadcrumbPage>
-                ),
-              )
-            ) : (
-              <BreadcrumbPage>{segments[0]}</BreadcrumbPage>
-            )}
-          </BreadcrumbList>
-        </Breadcrumb>
-      </CardHeader>
-      <CardContent className="flex flex-row gap-16 text-sm">
-        <div className="flex flex-col">
-          <div className="text-muted-foreground">Creada el</div>
-          <div>{toESString(route.created_at)}</div>
-        </div>
-        <div className="flex flex-col">
-          <div className="text-muted-foreground">ID</div>
-          <div>{route.id}</div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
-const MountedFunctions = ({ functions }: { functions: MountedFunction[] }) => {
-  if (!functions.length)
-    return (
-      <div className="size-xs text-muted-foreground flex flex-row items-center justify-center gap-4">
-        No hay funciones montadas a esta ruta.
-        <NewMountedFunctionButton />
-      </div>
-    );
-
-  return (
-    <div className="flex grow flex-col gap-8">
-      <h2 className="text-lg">Funciones montadas</h2>
-    </div>
-  );
-};
-
 const RouteDetail = () => {
   const routeQr = useCurrentRoute();
   const functionsQr = useCurrentRouteFunctions();
@@ -115,7 +43,7 @@ const RouteDetail = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <DetailsCard route={route} />
+      <RouteDetailsCard route={route} />
       <MountedFunctions functions={functions} />
     </div>
   );

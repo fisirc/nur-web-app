@@ -79,6 +79,7 @@ const FunctionsTable = ({ functions }: { functions: FunctionList }) => {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    enableRowSelection: false,
   });
 
   return (

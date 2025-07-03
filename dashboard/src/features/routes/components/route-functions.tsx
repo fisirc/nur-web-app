@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import type { MountedFunction } from "../types";
 import {
   getCoreRowModel,
@@ -10,10 +9,7 @@ import { DataTable } from "@/components/ui/data-table";
 import fuzzyFilter from "@/utils/fuzzy-filter";
 import { Input } from "@/components/ui/input";
 import { Link, useParams } from "wouter";
-
-const NewMountedFunctionButton = () => {
-  return <Button>Montar función</Button>;
-};
+import RouteNewFunctionButton from "./route-new-function-button";
 
 const MountedFunctions = ({ functions }: { functions: MountedFunction[] }) => {
   const { project_id } = useParams();
@@ -54,7 +50,7 @@ const MountedFunctions = ({ functions }: { functions: MountedFunction[] }) => {
     return (
       <div className="size-xs text-muted-foreground flex flex-row items-center justify-center gap-4">
         No hay funciones montadas a esta ruta.
-        <NewMountedFunctionButton />
+        <RouteNewFunctionButton />
       </div>
     );
 
@@ -69,7 +65,7 @@ const MountedFunctions = ({ functions }: { functions: MountedFunction[] }) => {
             value={table.getState().globalFilter}
             onChange={(e) => table.setGlobalFilter(String(e.target.value))}
           />
-          <NewMountedFunctionButton />
+          <RouteNewFunctionButton />
         </div>
         <DataTable table={table} />
       </div>

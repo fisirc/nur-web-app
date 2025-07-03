@@ -9,7 +9,7 @@ import { Route, Switch, useLocation } from "wouter";
 import useCurrentRoute from "@/features/routes/hooks/use-current-route";
 import useCurrentRouteFunctions from "@/features/routes/hooks/use-current-route-functions";
 import RouteDetailsCard from "@/features/routes/components/route-details-card";
-import MountedFunctions from "@/features/routes/components/mounted-functions";
+import MountedFunctions from "@/features/routes/components/route-functions";
 
 const RoutesTreePanel = ({ routes }: { routes: ApiRoute[] }) => {
   const tree = useMemo(() => routesToTree(routes), [routes]);

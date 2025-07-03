@@ -10,14 +10,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+import { ScrollArea } from "./scroll-area";
 
 interface DataTableProps<TData> {
   table: TableType<TData>;
+  className?: string;
 }
 
-export function DataTable<TData>({ table }: DataTableProps<TData>) {
+export function DataTable<TData>({ table, className }: DataTableProps<TData>) {
   return (
-    <div className="rounded-md border">
+    <ScrollArea className={cn("rounded-md border", className)}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -43,6 +46,11 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                onClick={() => {
+                  if (row.getCanSelect()) {
+                    row.toggleSelected();
+                  }
+                }}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -63,6 +71,6 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
           )}
         </TableBody>
       </Table>
-    </div>
+    </ScrollArea>
   );
 }

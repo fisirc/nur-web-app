@@ -2,17 +2,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ApiRoute } from "@/features/routes/types";
 import useCurrentProjectRoutes from "../hooks/use-current-project-routes";
 import QueryHandler from "@/components/query-handler";
-import routesToTree from "@/features/routes/utils/routes-to-tree";
 import { RoutesTree } from "@/features/routes/components/routes-tree";
-import { useMemo } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import useCurrentRoute from "@/features/routes/hooks/use-current-route";
 import useCurrentRouteFunctions from "@/features/routes/hooks/use-current-route-functions";
 import RouteDetailsCard from "@/features/routes/components/route-details-card";
 import MountedFunctions from "@/features/routes/components/route-functions";
+import useRoutesTree from "../hooks/use-routes-tree";
 
 const RoutesTreePanel = ({ routes }: { routes: ApiRoute[] }) => {
-  const tree = useMemo(() => routesToTree(routes), [routes]);
+  const tree = useRoutesTree(routes);
   const [, navigate] = useLocation();
 
   return (

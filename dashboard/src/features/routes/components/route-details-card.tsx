@@ -22,12 +22,12 @@ export default ({ route }: { route: ApiRoute }) => {
               segments.map((segment, i) =>
                 i !== segments.length - 1 ? (
                   <>
-                    <BreadcrumbItem>
+                    <BreadcrumbItem key={2 * i}>
                       <BreadcrumbPage className="text-muted-foreground">
                         {segment}
                       </BreadcrumbPage>
                     </BreadcrumbItem>
-                    <BreadcrumbSeparator />
+                    <BreadcrumbSeparator key={2 * i + 1} />
                   </>
                 ) : (
                   <BreadcrumbPage>{segment}</BreadcrumbPage>

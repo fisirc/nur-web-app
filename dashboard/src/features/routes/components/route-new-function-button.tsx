@@ -34,7 +34,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { useState } from "react";
 import useMountFunction from "../hooks/use-mount-function";
 import useCurrentRoute from "../hooks/use-current-route";
-import type { ApiRoute } from "../types";
+import type { ApiRoute, MethodName } from "../types";
 
 const ModalContent = ({
   functions,
@@ -48,7 +48,7 @@ const ModalContent = ({
   const [functionSelection, setFunctionSelection] = useState<RowSelectionState>(
     {},
   );
-  const [selectedMethod, setSelectedMethod] = useState<string>(methods[0]);
+  const [selectedMethod, setSelectedMethod] = useState<MethodName>(methods[0]);
 
   const functionsCols: ColumnDef<FunctionListElem>[] = [
     {
@@ -139,7 +139,14 @@ const ModalContent = ({
           <div className="text-muted-foreground text-sm">
             Elige un método HTTP
           </div>
-          <Tabs value={selectedMethod} onValueChange={setSelectedMethod}>
+          <Tabs
+            value={selectedMethod}
+            onValueChange={(value: string) => {
+              if (methods.includes(value as MethodName)) {
+                setSelectedMethod(value as MethodName);
+              }
+            }}
+          >
             <TabsList className="w-full">
               {methods.map((method) => (
                 <TabsTrigger key={method} value={method} className="capitalize">

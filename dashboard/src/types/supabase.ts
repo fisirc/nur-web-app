@@ -317,7 +317,7 @@ export type Database = {
           project_id: string
         }
         Insert: {
-          created_at: string
+          created_at?: string
           id?: string
           path_absolute: string
           project_id: string

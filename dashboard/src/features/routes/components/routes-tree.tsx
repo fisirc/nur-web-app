@@ -3,7 +3,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronRight } from "lucide-react";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { useLocation, useParams } from "wouter";
+import { useLocation } from "wouter";
 
 const treeVariants = cva(
   "group hover:before:opacity-50 before:absolute before:rounded-lg before:left-0 px-2 before:w-full before:opacity-0 before:bg-accent/70 before:h-[2rem] before:-z-10",
@@ -272,7 +272,7 @@ const TreeNode = ({
       <AccordionPrimitive.Item value={item.id}>
         <AccordionPrimitive.Header
           className={cn(
-            "flex w-full flex-1 items-center gap-2 py-2 transition-all",
+            "group flex w-full flex-1 items-center gap-2 py-2 transition-all",
             treeVariants(),
             selectedItemId === item.id && selectedTreeVariants(),
             isDragOver && dragOverVariants(),

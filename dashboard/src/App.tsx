@@ -2,17 +2,7 @@ import { Redirect, Route, Switch } from "wouter";
 import OrgDashboard from "@/features/orgs/components/org-dashboard";
 import ProjectDashboard from "@feat/projects/components/project-dashboard";
 
-import Hotjar from '@hotjar/browser';
-import { useEffect } from "react";
-
-const siteId = 6456060;
-const hotjarVersion = 6;
-
 const App = () => {
-  useEffect(() => {
-    Hotjar.init(siteId, hotjarVersion);
-  }, []);
-
   return (
     <Switch>
       <Route path="/">

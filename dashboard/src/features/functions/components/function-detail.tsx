@@ -235,12 +235,11 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
             <div className="px-4 pb-4">
               <div className="bg-input rounded-md p-4">
                 <div className="mb-2 font-medium" id="endpoint-label">Endpoint</div>
-                <div className="flex items-center gap-2">
-                  <a
+                <div className="flex items-center gap-2">                    <a
                     href={`https://nur.paoloose.site/${fn.id}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-background hover:bg-muted border-border hover:border-primary/50 group flex flex-1 cursor-pointer items-center gap-2 rounded border px-3 py-2 font-mono text-sm text-blue-600 underline decoration-dotted underline-offset-2 transition-all hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                    className="bg-background hover:bg-muted border-border hover:border-primary/50 group flex flex-1 cursor-pointer items-center gap-2 rounded border px-3 py-2 font-mono text-sm text-blue-700 underline decoration-dotted underline-offset-2 transition-all hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-100"
                     aria-labelledby="endpoint-label"
                     aria-describedby="endpoint-description"
                   >
@@ -307,7 +306,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                     <div className="mb-2 font-medium" id="date-label">Fecha</div>
                     <div className="flex items-center gap-2" aria-labelledby="date-label">
                       <Calendar className="text-muted-foreground size-4" aria-hidden="true" />
-                      <span className="text-muted-foreground">
+                      <span className="text-gray-300">
                         {fnDeployment.data.project_build_id.created_at &&
                           toESString(
                             fnDeployment.data.project_build_id.created_at,
@@ -321,11 +320,10 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
           </div>
         </div>
 
-        <Tabs defaultValue="logs" className="mt-6 flex flex-1 flex-col">
-          <TabsList className="grid w-full grid-cols-3 bg-black" aria-label="Pestañas de información de la función">
+        <Tabs defaultValue="logs" className="mt-6 flex flex-1 flex-col">              <TabsList className="grid w-full grid-cols-3 bg-black" aria-label="Pestañas de información de la función">
             <TabsTrigger
               value="logs"
-              className="flex cursor-pointer items-center gap-2 text-gray-600 transition-all hover:text-gray-400 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-black data-[state=active]:shadow-2xl"
+              className="flex cursor-pointer items-center gap-2 text-gray-400 transition-all hover:text-gray-300 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-black data-[state=active]:shadow-2xl"
               aria-label="Ver logs de la función"
             >
               <Search className="size-4" aria-hidden="true" />
@@ -333,7 +331,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
             </TabsTrigger>
             <TabsTrigger
               value="test"
-              className="flex cursor-pointer items-center gap-2 text-gray-600 transition-all hover:text-gray-400 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-black data-[state=active]:shadow-2xl"
+              className="flex cursor-pointer items-center gap-2 text-gray-400 transition-all hover:text-gray-300 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-black data-[state=active]:shadow-2xl"
               aria-label="Probar la función"
             >
               <Play className="size-4" aria-hidden="true" />
@@ -341,7 +339,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
             </TabsTrigger>
             <TabsTrigger
               value="metrics"
-              className="flex cursor-pointer items-center gap-2 text-gray-600 transition-all hover:text-gray-400 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-black data-[state=active]:shadow-2xl"
+              className="flex cursor-pointer items-center gap-2 text-gray-400 transition-all hover:text-gray-300 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-black data-[state=active]:shadow-2xl"
               aria-label="Ver métricas de la función"
             >
               <BarChart3 className="size-4" aria-hidden="true" />
@@ -383,7 +381,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                 aria-live="polite"
               >
                 {filteredLogs.length === 0 ? (
-                  <div className="flex h-full items-center justify-center py-8 text-center text-gray-500" aria-live="polite">
+                  <div className="flex h-full items-center justify-center py-8 text-center text-gray-300" aria-live="polite">
                     {searchTerm
                       ? "No se encontraron logs que coincidan con la búsqueda"
                       : "No hay logs disponibles"}
@@ -395,7 +393,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                         key={log.id}
                         className="group hover:bg-muted/50 m-0 flex gap-6 rounded px-2 py-1"
                       >
-                        <span className="text-muted-foreground shrink-0">
+                        <span className="shrink-0 text-gray-300">
                           {dateToTimeFormattedString(log.timestamp)}
                         </span>
                         <span className="text-foreground flex-1">
@@ -529,7 +527,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                     <h4 className="mb-2 text-sm font-medium" id="response-label">Response</h4>
                   </div>
 
-                  <div 
+                  <div
                     className="bg-sidebar border-border min-h-0 flex-1 overflow-hidden rounded-lg border p-4"
                     aria-live="polite"
                     aria-labelledby="response-label"
@@ -550,13 +548,12 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                                   Status:
                                 </span>
                                 <span
-                                  className={`rounded px-2 py-1 font-mono text-xs ${
-                                    response.status &&
+                                  className={`rounded px-2 py-1 font-mono text-xs ${response.status &&
                                     response.status >= 200 &&
                                     response.status < 300
-                                      ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                                      : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-                                  }`}
+                                    ? "bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-50"
+                                    : "bg-red-100 text-red-900 dark:bg-red-800 dark:text-red-50"
+                                    }`}
                                   role="status"
                                 >
                                   {response.status} {response.statusText}
@@ -571,14 +568,14 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                                   <div className="mb-2 text-sm font-medium" id="response-headers-label">
                                     Headers:
                                   </div>
-                                  <div 
-                                    className="bg-background max-h-24 overflow-y-auto rounded p-2" 
+                                  <div
+                                    className="bg-background max-h-24 overflow-y-auto rounded p-2"
                                     aria-labelledby="response-headers-label"
                                   >
                                     <pre className="text-muted-foreground font-mono text-xs">
                                       {Object.entries(response.headers).map(
                                         ([key, value]) => (
-                                          <div key={key}>
+                                          <div key={key} className="text-foreground">
                                             {key}: {value}
                                           </div>
                                         ),
@@ -593,7 +590,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                               <div className="mb-2 text-sm font-medium" id="response-body-label">
                                 Body:
                               </div>
-                              <div 
+                              <div
                                 className="bg-background h-full overflow-auto rounded p-4"
                                 aria-labelledby="response-body-label"
                               >
@@ -608,7 +605,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                         )}
                       </div>
                     ) : (
-                      <div className="text-muted-foreground flex h-full items-center justify-center" aria-label="Sin respuesta">
+                      <div className="flex h-full items-center justify-center text-gray-300" aria-label="Sin respuesta">
                         Send a request to see the response here
                       </div>
                     )}
@@ -625,10 +622,10 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
                 <h3 className="mb-2 text-lg font-semibold">
                   TODO: Métricas en tiempo real
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-gray-300">
                   Aquí se mostrarán gráficos de métricas en tiempo real como:
                 </p>
-                <ul className="text-muted-foreground mt-2 space-y-1" aria-label="Tipos de métricas disponibles en el futuro">
+                <ul className="mt-2 space-y-1 text-gray-300" aria-label="Tipos de métricas disponibles en el futuro">
                   <li>• Invocaciones por minuto</li>
                   <li>• Tiempo de respuesta promedio</li>
                   <li>• Errores y códigos de estado</li>

@@ -31,7 +31,7 @@ const columns: ColumnDef<Member>[] = [
       return (
         <div className="flex items-center gap-2">
           {avatar_url ? (
-            <img className="size-8 rounded-full" src={avatar_url} />
+            <img className="size-8 rounded-full" src={avatar_url} alt="Team member avatar" />
           ) : (
             <CircleUser className="size-8" />
           )}

@@ -40,7 +40,7 @@ const UserAvatar = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <img src="https://picsum.photos/50" className="size-8 rounded-full" />
+        <img src="https://picsum.photos/50" className="size-8 rounded-full" alt="User Profile Picture" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="overflow-visible">
         <DropdownMenuSub>

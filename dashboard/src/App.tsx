@@ -1,8 +1,18 @@
-import { Redirect, Route, Switch } from "wouter";
+import { Redirect, Route, Switch, useLocation } from "wouter";
+import { useEffect } from "react";
+import posthog from "posthog-js";
+
 import OrgDashboard from "@/features/orgs/components/org-dashboard";
 import ProjectDashboard from "@feat/projects/components/project-dashboard";
 
 const App = () => {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    console.log('[PostHog] Sending $pageview for', location);
+    posthog.capture('$pageview');
+  }, [location]);
+
   return (
     <Switch>
       <Route path="/">

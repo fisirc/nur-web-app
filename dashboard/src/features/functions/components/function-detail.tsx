@@ -135,7 +135,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
   // Clear request form
   const clearRequest = () => {
     setHttpMethod("GET");
-    setRequestUrl(fn?.id ? `https://nur.paoloose.site/${fn.id}/` : "");
+    setRequestUrl(fn?.id ? `https://api.nur.paoloose.site/${fn.id}/` : "");
     setRequestHeaders("");
     setRequestBody("");
     setResponse(null);
@@ -198,7 +198,7 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
   // Initialize request URL when function data is available
   useEffect(() => {
     if (fn?.id && !requestUrl) {
-      setRequestUrl(`https://nur.paoloose.site/${fn.id}/`);
+      setRequestUrl(`https://api.nur.paoloose.site/${fn.id}/`);
     }
   }, [fn?.id, requestUrl, setRequestUrl]);
 
@@ -236,21 +236,21 @@ const FunctionDetail = ({ functionId }: FunctionDetailProps) => {
               <div className="bg-input rounded-md p-4">
                 <div className="mb-2 font-medium" id="endpoint-label">Endpoint</div>
                 <div className="flex items-center gap-2">                    <a
-                    href={`https://nur.paoloose.site/${fn.id}/`}
+                    href={`https://api.nur.paoloose.site/${fn.id}/`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-background hover:bg-muted border-border hover:border-primary/50 group flex flex-1 cursor-pointer items-center gap-2 rounded border px-3 py-2 font-mono text-sm text-blue-700 underline decoration-dotted underline-offset-2 transition-all hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-100"
                     aria-labelledby="endpoint-label"
                     aria-describedby="endpoint-description"
                   >
-                    <span>https://nur.paoloose.site/{fn.id}/[path]</span>
+                    <span>https://api.nur.paoloose.site/{fn.id}/[path]</span>
                     <ExternalLink className="size-3 opacity-60 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                   </a>
                   <button
                     onClick={async () => {
                       try {
                         await navigator.clipboard.writeText(
-                          `https://nur.paoloose.site/${fn.id}/`,
+                          `https://api.nur.paoloose.site/${fn.id}/`,
                         );
                       } catch (err) {
                         console.error("Failed to copy endpoint:", err);
